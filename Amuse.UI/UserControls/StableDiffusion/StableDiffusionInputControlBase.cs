@@ -461,10 +461,6 @@ namespace Amuse.UI.UserControls
 
         private int GetPromptTokenLimit(StableDiffusionPipelineModel pipeline)
         {
-            if (pipeline.BaseModel.Variant == "RyzenAI")
-            {
-                return pipeline.PipelineType == PipelineType.StableDiffusion3 ? 83 : 77;
-            }
             return 0;
         }
 

@@ -70,9 +70,7 @@
                 SelectedUpscaleModel="{Binding SelectedUpscaleModel, Mode=TwoWay}"
                 CurrentPipeline="{Binding CurrentPipeline, Mode=OneWay}"
                 LoadPipelineCommand="{Binding LoadPipelineCommand, Mode=OneWay}"
-                UnloadPipelineCommand="{Binding UnloadPipelineCommand, Mode=OneWay}"
-                IsSuperResolutionSupported="{Binding IsSuperResolutionSupported, Mode=OneWay}"
-                IsSuperResolutionEnabled="{Binding IsSuperResolutionEnabled, Mode=TwoWay}"/>
+                UnloadPipelineCommand="{Binding UnloadPipelineCommand, Mode=OneWay}"/>
 
             <Border DockPanel.Dock="Top" Margin="0,0,0,10">
                 <StackPanel Opacity=".85">
@@ -336,7 +334,7 @@
             </StackPanel>
 
 
-            <!--AMD XDNA + Options-->
+            <!--Options-->
             <DockPanel DockPanel.Dock="Top"  Margin="0,2,0,0"  IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" >
                 <UniformGrid DockPanel.Dock="Right" Columns="2" Height="50"  Margin="4,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
                     <ToggleButton IsChecked="{Binding IsRandomSeedEnabled}" Width="40" Margin="0,0,2,0">
@@ -347,12 +345,6 @@
                     </ToggleButton>
                 </UniformGrid>
                 <StackPanel VerticalAlignment="Center" Margin="0,10,0,0">
-                    <CheckBox IsChecked="{Binding IsSuperResolutionEnabled}" Style="{StaticResource SwitchBox}" Margin="0,0,0,3" IsEnabled="{Binding IsSuperResolutionSupported}" ToolTip="Requires an AMD XDNA™ based NPU" ToolTipService.ShowOnDisabled="True">
-                        <TextBlock Text="AMD XDNA™ Super Resolution" TextAlignment="Center" FontSize="11"/>
-                    </CheckBox>
-                    <CheckBox IsChecked="{Binding IsNPUStableDiffusionEnabled}" Style="{StaticResource SwitchBox}" Margin="0,0,0,3" Visibility="{Binding IsNPUStableDiffusionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="AMD XDNA™ 2 Stable Diffusion" TextAlignment="Center" FontSize="11"/>
-                    </CheckBox>
                     <Grid Margin="0,0,0,0" Visibility="{Binding IsVideoGenerationMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                         <CheckBox IsChecked="{Binding IsQualityBoostEnabled}" Style="{StaticResource SwitchBox}" Visibility="{Binding IsQualityBoostSupported, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock Text="Image Quality Boost" TextAlignment="Center" FontSize="11"/>

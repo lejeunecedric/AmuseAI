@@ -18,7 +18,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -36,6 +38,7 @@ namespace Amuse.UI
     {
         private static readonly string _version = Utils.GetAppVersion();
         private static readonly string _displayVersion = Utils.GetDisplayVersion();
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         private static IHost _applicationHost;
         private static Mutex _applicationMutex;
@@ -59,6 +62,7 @@ namespace Amuse.UI
 
         public App()
         {
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "AmuseApp");
             _applicationMutex = new Mutex(false, "Global\\TensorStack_Amuse", out bool isNewInstance);
             if (!isNewInstance)
             {
@@ -85,6 +89,7 @@ namespace Amuse.UI
             DispatcherUnhandledException += Application_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            _ = AutoCheckForUpdates(_cancellationTokenSource.Token);
         }
 
         public static string Version => _version;
@@ -102,7 +107,11 @@ namespace Amuse.UI
         /// <returns></returns>
         public static string GetApplicationDataDirectory()
         {
+#if DEBUG_INSTALLER || RELEASE_INSTALLER 
+             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Amuse");
+#else
             return _baseDirectory;
+#endif
         }
 
         public static BaseWindow CurrentWindow => Current.MainWindow as BaseWindow;
@@ -163,7 +172,7 @@ namespace Amuse.UI
             builder.Services.AddTransient<AppUpdateDialog>();
             builder.Services.AddTransient<CreateVideoDialog>();
             builder.Services.AddTransient<ModelLicenceDialog>();
-            
+
 
             // Services
             builder.Services.AddSingleton<IModelFactory, ModelFactory>();
@@ -172,7 +181,6 @@ namespace Amuse.UI
             builder.Services.AddSingleton<IDeviceService, DeviceService>();
             builder.Services.AddSingleton<IFileService, FileService>();
             builder.Services.AddSingleton<IModelCacheService, ModelCacheService>();
-            builder.Services.AddSingleton<ISuperResolutionService, SuperResolutionService>();
             builder.Services.AddSingleton<IModeratorService, ModeratorService>();
             builder.Services.AddSingleton<IPreviewService, PreviewService>();
             builder.Services.AddSingleton<IHardwareService, HardwareService>();
@@ -439,6 +447,120 @@ namespace Amuse.UI
         }
 
 
+        public async Task CheckForUpdates()
+        {
+            try
+            {
+                var amuseSettings = GetService<AmuseSettings>();
+                if (amuseSettings.IsUpdateEnabled)
+                {
+                    _logger.LogInformation("[CheckForUpdates] - Check for updates...");
+                    var updateResponse = await GetUpdateInfo();
+                    if (updateResponse is not null)
+                    {
+                        IsUpdateAvailable = updateResponse.Version != App.Version;
+                        _logger.LogInformation($"[CheckForUpdates] - Check for updates complete, IsUpdateAvailable: {IsUpdateAvailable}");
+                    }
+                    else
+                    {
+                        _logger.LogError("[CheckForUpdates] - Null response from update check.");
+                    }
+                }
+                else
+                {
+                    IsUpdateAvailable = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[CheckForUpdates] - An exception occured during update check, Error: {ex.Message}");
+            }
+        }
+
+
+        private async Task AutoCheckForUpdates(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+                while (true)
+                {
+                    await CheckForUpdates();
+                    await Task.Delay(TimeSpan.FromMinutes(60), cancellationToken);
+                }
+            }
+            catch (OperationCanceledException) { }
+        }
+
+
+        private async Task<AppUpdate> GetUpdateInfo()
+        {
+            try
+            {
+                using (var response = await _httpClient.GetAsync("https://api.github.com/repos/TensorStack-AI/AmuseAI/releases/latest"))
+                {
+                    response.EnsureSuccessStatusCode();
+                    var versionResponse = await response.Content.ReadFromJsonAsync<AppVersion>();
+                    var versionAsset = versionResponse?.Assets?.FirstOrDefault();
+                    if (versionAsset == null)
+                    {
+                        _logger.LogError("[GetUpdateInfo] - Null response from update check.");
+                        return default;
+                    }
+
+                    return new AppUpdate(versionResponse, versionAsset);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("[GetUpdateInfo] - An exception occured during update check, Error: {Message}", ex.Message);
+                return default;
+            }
+        }
+
+
+        private async Task UpdateAsync()
+        {
+            try
+            {
+                var updateInfo = await GetUpdateInfo();
+                if (updateInfo is null)
+                    return;
+
+                _logger.LogInformation($"[UpdateAsync] - Show AppUpdateDialog dialog");
+
+                var dialogService = GetService<IDialogService>();
+                var appUpdateDialog = dialogService.GetDialog<AppUpdateDialog>();
+                if (await appUpdateDialog.ShowDialogAsync(updateInfo))
+                {
+                    _logger.LogInformation("[UpdateAsync] - Update downloaded successfully, Launching: {FileName}", appUpdateDialog.DownloadFile.FileName);
+                    var process = Process.Start(new ProcessStartInfo
+                    {
+                        UseShellExecute = true,
+                        Verb = "runas",
+                        FileName = appUpdateDialog.DownloadFile.FileName
+                    });
+
+                    if (process is null)
+                    {
+                        _logger.LogError($"[UpdateAsync] - Failed to launch Amuse installer.");
+                        return;
+                    }
+
+                    _logger.LogInformation($"[UpdateAsync] - Launched Amuse installer, closing application...");
+                    Current.Shutdown();
+                    return;
+                }
+
+                _logger.LogInformation($"[UpdateAsync] - User canceled update.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[UpdateAsync] - An exception occured during update navigate");
+            }
+        }
+
+
         /// <summary>
         /// Handles unrecoverable exceptions.
         /// </summary>
@@ -484,11 +606,6 @@ namespace Amuse.UI
                     break;
                 }
             }
-        }
-
-        private Task UpdateAsync()
-        {
-            return Task.CompletedTask;
         }
 
 

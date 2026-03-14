@@ -68,9 +68,7 @@
                  SelectedUpscaleModel="{Binding SelectedUpscaleModel, Mode=TwoWay}"
                  CurrentPipeline="{Binding CurrentPipeline, Mode=OneWay}"
                  LoadPipelineCommand="{Binding LoadPipelineCommand, Mode=OneWay}"
-                 UnloadPipelineCommand="{Binding UnloadPipelineCommand, Mode=OneWay}"
-                 IsSuperResolutionSupported="{Binding IsSuperResolutionSupported, Mode=OneWay}"
-                 IsSuperResolutionEnabled="{Binding IsSuperResolutionEnabled, Mode=TwoWay}"/>
+                 UnloadPipelineCommand="{Binding UnloadPipelineCommand, Mode=OneWay}"/>
 
             <Border DockPanel.Dock="Top" Margin="0,0,0,10">
                 <StackPanel Opacity=".85">
@@ -168,28 +166,8 @@
 
 
 
-                <!--AMD XDNA + Options-->
+                <!--Options-->
                 <Grid DockPanel.Dock="Top" Margin="0,0,0,0" IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,16,0,0" >
-                        <CheckBox DockPanel.Dock="Left" IsChecked="{Binding IsSuperResolutionEnabled}" IsEnabled="{Binding IsSuperResolutionSupported}" Style="{StaticResource SwitchBox}" Margin="0,4,0,3"  ToolTip="Requires an AMD XDNA™ based NPU" ToolTipService.ShowOnDisabled="True" />
-                        <StackPanel Margin="2,0,0,0" IsEnabled="{Binding IsSuperResolutionSupported}">
-                            <TextBlock FontSize="10" >
-                                <Run Text="AMD XDNA™"  />
-                                <LineBreak/>
-                                <Run Text="Super Resolution"  />
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                                        <Setter Property="Opacity" Value=".6" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsSuperResolutionSupported, ElementName=UI}" Value="True">
-                                                <Setter Property="Opacity" Value="1" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </StackPanel>
-                    </StackPanel>
 
                     <UniformGrid Columns="2" >
                         <TextBlock />

@@ -71,9 +71,7 @@
                  CurrentPipeline="{Binding CurrentPipeline, Mode=OneWay}"
                  LoadPipelineCommand="{Binding LoadPipelineCommand, Mode=OneWay}"
                  UnloadPipelineCommand="{Binding UnloadPipelineCommand, Mode=OneWay}"
-                 IsControlNetEnabled="{Binding IsControlNetEnabled, Mode=OneWay}"
-                 IsSuperResolutionSupported="{Binding IsSuperResolutionSupported, Mode=OneWay}"
-                 IsSuperResolutionEnabled="{Binding IsSuperResolutionEnabled, Mode=TwoWay}"/>
+                 IsControlNetEnabled="{Binding IsControlNetEnabled, Mode=OneWay}"/>
 
             <Border DockPanel.Dock="Top" Margin="0,0,0,10">
                 <StackPanel Opacity=".85">
@@ -323,7 +321,7 @@
                 </StackPanel>
 
 
-                <!--AMD XDNA + Options-->
+                <!--Options-->
                 <DockPanel  DockPanel.Dock="Top" Margin="0,2,0,0" >
                     <UniformGrid DockPanel.Dock="Right" Columns="2" Height="50"  Margin="4,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
                         <ToggleButton IsChecked="{Binding IsRandomSeedEnabled}" Width="40" Margin="0,0,2,0">
@@ -333,11 +331,6 @@
                             <userControls:FontAwesome Icon="&#xf021;" IconStyle="Light" Color="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" ToolTip="Realtime Stable Diffusion"/>
                         </ToggleButton>
                     </UniformGrid>
-                    <StackPanel VerticalAlignment="Center" Margin="0,10,0,0">
-                        <CheckBox IsChecked="{Binding IsSuperResolutionEnabled}" Style="{StaticResource SwitchBox}" Margin="0,0,0,3" IsEnabled="{Binding IsSuperResolutionSupported}" ToolTip="Requires an AMD XDNA™ based NPU" ToolTipService.ShowOnDisabled="True">
-                            <TextBlock Text="AMD XDNA™ Super Resolution" TextAlignment="Center" FontSize="11"/>
-                        </CheckBox>
-                    </StackPanel>
                 </DockPanel>
 
             </StackPanel>

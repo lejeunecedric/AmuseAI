@@ -2275,7 +2275,7 @@
                                                HorizontalAlignment="Left"  
                                                VerticalAlignment="Center"  
                                                Content="{TemplateBinding Title}" />
-                                            <TextBlock Text="beta" FontSize="10" FontStyle="Italic" Opacity=".6" VerticalAlignment="Center" Margin="2,3,0,0" />
+                                            <TextBlock Text="" FontSize="10" FontStyle="Italic" Opacity=".6" VerticalAlignment="Center" Margin="2,3,0,0" />
                                         </StackPanel>
                                     </DockPanel>
 

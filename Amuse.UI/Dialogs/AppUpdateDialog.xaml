@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         x:Name="UI"
         Icon="/Images/Icon.png"
-        MinWidth="500"
-        MaxWidth="500"
+        MinWidth="550"
+        MaxWidth="550"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner" 
         SnapsToDevicePixels="True"
@@ -41,7 +41,7 @@
                         <Image DockPanel.Dock="Left" Source="/Images/Icon.png" Width="50"/>
                         <StackPanel Margin="10,0,0,0">
                             <TextBlock Text="{Binding AmuseUpdate.Version, StringFormat=Amuse - {0}}" FontSize="14" FontWeight="SemiBold" />
-                            <controls:HyperlinkControl Link="https://www.amuse-ai.com" Label="https://www.amuse-ai.com"></controls:HyperlinkControl>
+                            <controls:HyperlinkControl Link="https://github.com/TensorStack-AI/AmuseAI" Label="https://github.com/TensorStack-AI/AmuseAI"></controls:HyperlinkControl>
                             <TextBlock Text="{Binding AmuseUpdate.DownloadLink}" TextWrapping="WrapWithOverflow"  FontSize="11"/>
                          
                         </StackPanel>

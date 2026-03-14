@@ -8,7 +8,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <PlatformTarget>x64</PlatformTarget>
-    <Configurations>Debug;Release;Debug_Direct</Configurations>
+    <Configurations>Debug;Release;Release-Installer;Debug-Installer;Debug_Direct</Configurations>
     <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
     <AssemblyName>Amuse</AssemblyName>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -29,62 +29,23 @@
 
   <!--References All Modes-->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-    <PackageReference Include="System.Management" Version="9.0.6" />
-    <PackageReference Include="WinPixEventRuntime" Version="1.0.240308001" />
-    <PackageReference Include="Microsoft.AI.DirectML" Version="1.15.4" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime.Managed" Version="1.23.0-dev-20250603-0558-cd5133371" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime.MIGraphX.Windows" Version="1.23.0-dev-20250603-0558-cd5133371" />
+    <PackageReference Include="System.Management" Version="10.0.5" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.23.0" />
   </ItemGroup>
 
 
   <!--References Debug/Release Modes-->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' OR '$(Configuration)' == 'Release'">
-    <PackageReference Include="OnnxStack.Core" Version="0.41.34" />
-    <PackageReference Include="OnnxStack.Device" Version="0.41.34" />
-    <PackageReference Include="OnnxStack.StableDiffusion" Version="0.41.34" />
-    <PackageReference Include="OnnxStack.ImageUpscaler" Version="0.41.34" />
-    <PackageReference Include="OnnxStack.FeatureExtractor" Version="0.41.34" />
-    <PackageReference Include="OnnxStack.StableDiffusion.AMD" Version="0.41.34" />
-  </ItemGroup>
-
-
-  <!--References Debug_Direct Mode-->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug_Direct'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.6" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime.Extensions" Version="0.14.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.10" />
-    <PackageReference Include="System.Linq.Async" Version="6.0.3" />
-    <PackageReference Include="System.Numerics.Tensors" Version="9.0.6" />
-    <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
-    <PackageReference Include="Microsoft.ML.Tokenizers" Version="2.0.0-preview.1.25127.4" />
-    <Reference Include="OnnxStack.Core">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.Core\bin\x64\Debug\net8.0\OnnxStack.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="OnnxStack.StableDiffusion">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.StableDiffusion\bin\x64\Debug\net8.0\OnnxStack.StableDiffusion.dll</HintPath>
-    </Reference>
-    <Reference Include="OnnxStack.Device">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.Device\bin\x64\Debug\net8.0\OnnxStack.Device.dll</HintPath>
-    </Reference>
-    <Reference Include="OnnxStack.ImageUpscaler">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.ImageUpscaler\bin\x64\Debug\net8.0\OnnxStack.ImageUpscaler.dll</HintPath>
-    </Reference>
-    <Reference Include="OnnxStack.FeatureExtractor">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.FeatureExtractor\bin\x64\Debug\net8.0\OnnxStack.FeatureExtractor.dll</HintPath>
-    </Reference>
-    <Reference Include="OnnxStack.StableDiffusion.AMD">
-      <HintPath>..\..\OnnxStack-Private\OnnxStack.StableDiffusion.AMD\bin\x64\Debug\net8.0\OnnxStack.StableDiffusion.AMD.dll</HintPath>
-    </Reference>
-    <None Include="..\..\OnnxStack-Private\OnnxStack.Adapter\x64\Debug\OnnxStack.Adapter.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' OR '$(Configuration)' == 'Release' OR '$(Configuration)' == 'Release-Installer'">
+    <PackageReference Include="OnnxStack.Core" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.Device" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.StableDiffusion" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.ImageUpscaler" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.FeatureExtractor" Version="0.60.0" />
   </ItemGroup>
 
 
@@ -135,7 +96,6 @@
     <Resource Include="Images\placeholder_sm.png" />
     <Resource Include="Images\robot.png" />
     <Resource Include="Images\Splash.png" />
-    <Resource Include="Images\Splash_AMD.png" />
     <Resource Include="Images\Splash_Logo.png" />
     <Resource Include="Images\Tensorstack_Small.png" />
     <Resource Include="Images\Upscale.png" />
@@ -162,10 +122,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Optimize>True</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Installer|x64'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
   <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Microsoft_AI_DirectML_SkipDebugLayerCopy>False</Microsoft_AI_DirectML_SkipDebugLayerCopy>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Installer|x64'" Label="Globals">
+    <Microsoft_AI_DirectML_SkipDebugLayerCopy>False</Microsoft_AI_DirectML_SkipDebugLayerCopy>
+  </PropertyGroup>
   <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Microsoft_AI_DirectML_SkipDebugLayerCopy>True</Microsoft_AI_DirectML_SkipDebugLayerCopy>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Installer|x64'" Label="Globals">
     <Microsoft_AI_DirectML_SkipDebugLayerCopy>True</Microsoft_AI_DirectML_SkipDebugLayerCopy>
   </PropertyGroup>
 

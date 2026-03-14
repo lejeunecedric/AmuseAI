@@ -15,7 +15,7 @@ namespace Amuse.UI.Dialogs
         private string _errorMessage;
         private readonly IModelDownloadService _modelDownloadService;
         private CancellationTokenSource _cancellationTokenSource;
-        private AmuseUpdate _amuseUpdate;
+        private AppUpdate _amuseUpdate;
         private double _progressValue;
         private double _progressMax;
         private DownloadInfo _downloadInfo;
@@ -31,7 +31,7 @@ namespace Amuse.UI.Dialogs
         public AsyncRelayCommand DownloadCommand { get; }
         public DownloadFileInfo DownloadFile => _downloadFile;
 
-        public AmuseUpdate AmuseUpdate
+        public AppUpdate AmuseUpdate
         {
             get { return _amuseUpdate; }
             set { _amuseUpdate = value; NotifyPropertyChanged(); }
@@ -67,7 +67,7 @@ namespace Amuse.UI.Dialogs
         }
 
 
-        public async Task<bool> ShowDialogAsync(AmuseUpdate amuseUpdate)
+        public async Task<bool> ShowDialogAsync(AppUpdate amuseUpdate)
         {
             AmuseUpdate = amuseUpdate;
             DownloadInfo = new DownloadInfo(amuseUpdate.DownloadSize);
@@ -95,8 +95,7 @@ namespace Amuse.UI.Dialogs
             {
                 ErrorMessage = string.Empty;
                 _cancellationTokenSource = new CancellationTokenSource();
-                var downloadLink = $"{_amuseUpdate.DownloadLink}?version={App.Version}";
-                _downloadFile = await _modelDownloadService.DownloadFileAsync(downloadLink, App.TempDirectory, (f, p, t) =>
+                _downloadFile = await _modelDownloadService.DownloadFileAsync(_amuseUpdate.DownloadLink, App.TempDirectory, (f, p, t) =>
                 {
                     if (ProgressMax != t)
                         ProgressMax = t;

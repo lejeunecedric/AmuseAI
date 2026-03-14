@@ -1,9 +1,7 @@
 ﻿using Amuse.UI.Commands;
-using Amuse.UI.Helpers;
 using Amuse.UI.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

@@ -26,12 +26,29 @@ namespace Amuse.UI.Views
             throw new NotImplementedException();
         }
 
-
         public Task NavigateAsync(IVideoResult videoResult)
         {
             throw new NotImplementedException();
         }
- 
+
+        protected override Task OnSettingsChanged()
+        {
+            Settings.PropertyChanged += async (s, e) =>
+            {
+                if (e.PropertyName == nameof(Settings.IsUpdateEnabled))
+                {
+                    if (Application.Current is App app)
+                    {
+                        if (Settings.IsUpdateEnabled)
+                            await app.CheckForUpdates();
+                        else
+                            app.IsUpdateAvailable = false;
+                    }
+                }
+            };
+            return base.OnSettingsChanged();
+        }
+
 
         protected override async Task SaveAsync()
         {
