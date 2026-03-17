@@ -1,8 +1,8 @@
 using Amuse.API.Models;
 using Microsoft.Extensions.Configuration;
-using OnnxStack.StableDiffusion;
-using OnnxStack.StableDiffusion.Config;
-using OnnxStack.StableDiffusion.Enums;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -11,28 +11,12 @@ namespace Amuse.API.Services
     public class StableDiffusionService
     {
         private readonly IConfiguration _configuration;
-        private readonly StableDiffusionGenerator _generator;
 
         public StableDiffusionService(IConfiguration configuration)
         {
             _configuration = configuration;
-            // Initialize the stable diffusion generator with settings from configuration
-            var modelPath = _configuration.GetValue<string>("StableDiffusionModelPath");
-            var deviceId = _configuration.GetValue<int>("DefaultExecutionDeviceId");
-            var provider = _configuration.GetValue<string>("DefaultExecutionProvider");
-
-            // For simplicity, we assume the model is already loaded and available.
-            // In a real scenario, we might use a model cache service similar to the UI.
-            // Since we are following the UI patterns, we note that the UI uses ModelFactory.
-            // However, in the API we don't have direct access to Amuse.UI.Services.ModelFactory
-            // without adding a project reference. For now, we'll create a simplified version
-            // that loads the model directly. In a later phase, we can introduce a shared service.
-
-            // This is a placeholder for the actual model loading logic.
-            // We'll create a generator that can be used for text-to-image.
-            _generator = new StableDiffusionGenerator();
-            // Note: The actual initialization would require loading the model, scheduler, etc.
-            // This is simplified for the purpose of the plan.
+            // For now, we are not actually loading the model. This is a placeholder.
+            // In a later phase, we will integrate with the OnnxStack to generate images.
         }
 
         public async Task<string> GenerateAsync(Text2ImgRequest request)
@@ -43,25 +27,16 @@ namespace Amuse.API.Services
                 throw new System.ArgumentException("Prompt is required", nameof(request.Prompt));
             }
 
-            // Prepare the generation options based on the request
-            var options = new StableDiffusionGeneratorOptions
-            {
-                Prompt = request.Prompt,
-                NegativePrompt = request.NegativePrompt ?? string.Empty,
-                Width = request.Width,
-                Height = request.Height,
-                NumInferenceSteps = request.Steps,
-                GuidanceScale = request.GuidanceScale,
-                Seed = request.Seed
-            };
-
-            // Generate the image
-            var result = await _generator.GenerateImageAsync(options);
+            // For now, generate a placeholder image (a small 10x10 red square)
+            // In a real implementation, we would use the Stable Diffusion model to generate the image.
+            using var bitmap = new Bitmap(10, 10);
+            using var graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(Color.Red); // Red color as placeholder
 
             // Convert the image to Base64 string
-            using var ms = new System.IO.MemoryStream();
-            result.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-            var base64 = System.Convert.ToBase64String(ms.ToArray());
+            using var ms = new MemoryStream();
+            bitmap.Save(ms, ImageFormat.Png);
+            var base64 = Convert.ToBase64String(ms.ToArray());
 
             return base64;
         }
