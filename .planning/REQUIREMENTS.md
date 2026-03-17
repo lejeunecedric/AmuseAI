@@ -134,11 +134,11 @@
 
 ### Generation Testing
 
-- [ ] **GEN-01**: Form for text2img with all parameters (prompt, negative, width, height, steps, guidance, seed)
-- [ ] **GEN-02**: Form for img2img with image upload and strength slider
-- [ ] **GEN-03**: Form for upscale with image upload and scale selector
-- [ ] **GEN-04**: Display generated images inline (Base64 decode)
-- [ ] **GEN-05**: Show request/response JSON for debugging
+- [x] **GEN-01**: Form for text2img with all parameters (prompt, negative, width, height, steps, guidance, seed)
+- [x] **GEN-02**: Form for img2img with image upload and strength slider
+- [x] **GEN-03**: Form for upscale with image upload and scale selector
+- [x] **GEN-04**: Display generated images inline (Base64 decode)
+- [x] **GEN-05**: Show request/response JSON for debugging
 
 ### Job Monitoring
 
@@ -170,11 +170,11 @@
 | WEB-02 | Phase 6 | Complete |
 | WEB-03 | Phase 6 | Complete |
 | WEB-04 | Phase 6 | Complete |
-| GEN-01 | Phase 7 | Pending |
-| GEN-02 | Phase 7 | Pending |
-| GEN-03 | Phase 7 | Pending |
-| GEN-04 | Phase 7 | Pending |
-| GEN-05 | Phase 7 | Pending |
+| GEN-01 | Phase 7 | Complete |
+| GEN-02 | Phase 7 | Complete |
+| GEN-03 | Phase 7 | Complete |
+| GEN-04 | Phase 7 | Complete |
+| GEN-05 | Phase 7 | Complete |
 | JOBM-01 | Phase 8 | Pending |
 | JOBM-02 | Phase 8 | Pending |
 | JOBM-03 | Phase 8 | Pending |
