@@ -1,8 +1,11 @@
 # Roadmap: AmuseAI Headless API
 
-**Phases:** 5
+**Milestone v1.0:** ✅ Complete (Phases 1-5) — 26/26 requirements
+**Milestone v1.1:** ○ Planned (Phases 6-10) — 22/22 requirements mapped
+
+**Total Phases:** 10
 **Granularity:** standard
-**Coverage:** 26/26 requirements mapped ✓
+**Overall Coverage:** 48/48 requirements mapped ✓
 
 ## Phases
 
@@ -127,4 +130,132 @@
 
 ---
 
+---
+
+## Milestone v1.1: API Web Client
+
+**Phases:** 5 (Phases 6-10)
+**Granularity:** standard
+**Coverage:** 22/22 requirements mapped ✓
+
+## Phases v1.1
+
+- [ ] **Phase 6: Web Client Foundation** - Static file server, API discovery, basic layout
+- [ ] **Phase 7: Generation Testing UI** - Forms for T2I, I2I, Upscale with results
+- [ ] **Phase 8: Job Monitor Dashboard** - Real-time job status with auto-refresh
+- [ ] **Phase 9: Model Management UI** - Load/unload interface
+- [ ] **Phase 10: API Inspector** - Request/response debugging tools
+
+---
+
+### Phase 6: Web Client Foundation
+
+**Goal:** Web client serves static files and connects to API
+
+**Depends on:** Phase 1 (API must be running)
+
+**Requirements:** WEB-01, WEB-02, WEB-03, WEB-04
+
+**Success Criteria** (what must be TRUE):
+1. Web client starts on port 5001
+2. Client auto-detects API at localhost:5000
+3. Serves clean HTML/CSS/JS without build step
+4. Basic responsive layout with navigation
+
+**Plans:** 1 plan - 06-01-PLAN.md
+
+---
+
+### Phase 7: Generation Testing UI
+
+**Goal:** Developers can test all generation endpoints via forms
+
+**Depends on:** Phase 6
+
+**Requirements:** GEN-01, GEN-02, GEN-03, GEN-04, GEN-05
+
+**Success Criteria** (what must be TRUE):
+1. T2I form has all parameter inputs
+2. I2I form supports image upload
+3. Upscale form has image upload and scale selector
+4. Generated images display inline
+5. Raw request/response JSON visible
+
+**Plans:** 1 plan - 07-01-PLAN.md
+
+---
+
+### Phase 8: Job Monitor Dashboard
+
+**Goal:** Real-time monitoring of job queue
+
+**Depends on:** Phase 6, Phase 5 (Job Queue API)
+
+**Requirements:** JOBM-01, JOBM-02, JOBM-03, JOBM-04, JOBM-05
+
+**Success Criteria** (what must be TRUE):
+1. All jobs listed with current status
+2. Auto-refresh every 2 seconds
+3. Click job to see details and result
+4. Cancel button works for pending/processing jobs
+5. Visual status indicators (colors/icons)
+
+**Plans:** 1 plan - 08-01-PLAN.md
+
+---
+
+### Phase 9: Model Management UI
+
+**Goal:** Visual interface for model operations
+
+**Depends on:** Phase 6, Phase 4 (Model API)
+
+**Requirements:** MODU-01, MODU-02, MODU-03, MODU-04
+
+**Success Criteria** (what must be TRUE):
+1. All models displayed with metadata
+2. Currently loaded models highlighted
+3. Load/unload buttons with confirmation
+4. Memory usage displayed
+
+**Plans:** 1 plan - 09-01-PLAN.md
+
+---
+
+### Phase 10: API Inspector
+
+**Goal:** Debug and inspect API calls
+
+**Depends on:** Phase 6
+
+**Requirements:** INSP-01, INSP-02, INSP-03, INSP-04
+
+**Success Criteria** (what must be TRUE):
+1. Raw HTTP requests displayed
+2. Raw HTTP responses displayed
+3. Copy-to-clipboard for curl commands
+4. Response time shown for each call
+
+**Plans:** 1 plan - 10-01-PLAN.md
+
+---
+
+## Progress
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. API Server Foundation | 1/1 | Complete    | 2026-03-17 |
+| 2. Text-to-Image | 1/1 | Complete    | 2026-03-17 |
+| 3. Image Transformation | 1/1 | Complete    | 2026-03-17 |
+| 4. Model Management | 1/1 | Complete    | 2026-03-17 |
+| 5. Job Queue | 1/1 | Complete    | 2026-03-17 |
+| 6. Web Client Foundation | 0/1 | Not started | - |
+| 7. Generation Testing UI | 0/1 | Not started | - |
+| 8. Job Monitor Dashboard | 0/1 | Not started | - |
+| 9. Model Management UI | 0/1 | Not started | - |
+| 10. API Inspector | 0/1 | Not started | - |
+
+---
+
 *Roadmap created: 2026-03-17*
+*Updated: 2026-03-17 for v1.1 API Web Client*
