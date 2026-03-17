@@ -20,6 +20,7 @@ try
 
     // Add services to the container.
     builder.Services.AddScoped<StableDiffusionService>();
+    builder.Services.AddSingleton<ModelManagementService>();
 
     builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(context.Configuration)
@@ -170,6 +171,117 @@ try
         catch (System.Exception ex)
         {
             Log.Error(ex, "Error upscaling image");
+            return Results.StatusCode(500);
+        }
+    });
+
+    // GET /api/models - returns list of available models
+    app.MapGet("/api/models", async (ModelManagementService modelService) =>
+    {
+        try
+        {
+            var models = await modelService.GetAllModelsAsync();
+            return Results.Ok(new { models });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error retrieving models");
+            return Results.StatusCode(500);
+        }
+    });
+
+    // GET /api/models/{id} - returns specific model details
+    app.MapGet("/api/models/{id}", async (string id, ModelManagementService modelService) =>
+    {
+        try
+        {
+            var model = await modelService.GetModelAsync(id);
+            
+            if (model == null)
+            {
+                return Results.NotFound(new { error = $"Model '{id}' not found" });
+            }
+
+            return Results.Ok(model);
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error retrieving model {ModelId}", id);
+            return Results.StatusCode(500);
+        }
+    });
+
+    // GET /api/models/loaded - returns currently loaded models
+    app.MapGet("/api/models/loaded", async (ModelManagementService modelService) =>
+    {
+        try
+        {
+            var models = await modelService.GetLoadedModelsAsync();
+            return Results.Ok(new { models });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error retrieving loaded models");
+            return Results.StatusCode(500);
+        }
+    });
+
+    // POST /api/models/{id}/load - loads a model into memory
+    app.MapPost("/api/models/{id}/load", async (string id, ModelManagementService modelService) =>
+    {
+        try
+        {
+            var model = await modelService.GetModelAsync(id);
+            
+            if (model == null)
+            {
+                return Results.NotFound(new { error = $"Model '{id}' not found" });
+            }
+
+            var success = await modelService.LoadModelAsync(id);
+            
+            if (success)
+            {
+                return Results.Ok(new { message = $"Model '{id}' loaded successfully", modelId = id });
+            }
+            else
+            {
+                return Results.Json(new { error = $"Failed to load model '{id}'" }, statusCode: 500);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error loading model {ModelId}", id);
+            return Results.StatusCode(500);
+        }
+    });
+
+    // POST /api/models/{id}/unload - unloads a model from memory
+    app.MapPost("/api/models/{id}/unload", async (string id, ModelManagementService modelService) =>
+    {
+        try
+        {
+            var model = await modelService.GetModelAsync(id);
+            
+            if (model == null)
+            {
+                return Results.NotFound(new { error = $"Model '{id}' not found" });
+            }
+
+            var success = await modelService.UnloadModelAsync(id);
+            
+            if (success)
+            {
+                return Results.Ok(new { message = $"Model '{id}' unloaded successfully", modelId = id });
+            }
+            else
+            {
+                return Results.BadRequest(new { error = $"Model '{id}' is not loaded" });
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error unloading model {ModelId}", id);
             return Results.StatusCode(500);
         }
     });
