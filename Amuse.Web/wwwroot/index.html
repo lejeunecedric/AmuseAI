@@ -570,11 +570,59 @@
 
             <!-- Jobs -->
             <section id="section-jobs" class="content-section">
-                <div class="section-card">
+                <div class="section-card jobs-section-card">
                     <h3>Job Monitor</h3>
-                    <p class="section-description">View and manage generation jobs.</p>
-                    <div class="jobs-placeholder">
-                        <p class="placeholder-text">Job list coming soon...</p>
+                    <p class="section-description">Real-time monitoring of generation jobs.</p>
+
+                    <!-- Controls Bar -->
+                    <div class="jobs-controls">
+                        <div class="jobs-filters">
+                            <button class="jobs-filter-btn active" data-filter="all">All</button>
+                            <button class="jobs-filter-btn" data-filter="Pending">Pending</button>
+                            <button class="jobs-filter-btn" data-filter="Processing">Processing</button>
+                            <button class="jobs-filter-btn" data-filter="Completed">Completed</button>
+                            <button class="jobs-filter-btn" data-filter="Failed">Failed</button>
+                            <button class="jobs-filter-btn" data-filter="Cancelled">Cancelled</button>
+                        </div>
+                        <div class="jobs-controls-right">
+                            <span class="last-updated" id="last-updated">Last updated: --</span>
+                            <span class="auto-refresh-indicator" id="auto-refresh-indicator" title="Auto-refresh paused"></span>
+                            <button class="btn btn-secondary btn-small" id="jobs-refresh-btn" title="Refresh now">
+                                <span>🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="jobs-error hidden" id="jobs-error"></div>
+
+                    <!-- Jobs Table Container -->
+                    <div class="jobs-container" id="jobs-container">
+                        <table class="jobs-table" id="jobs-table">
+                            <thead>
+                                <tr>
+                                    <th>Job ID</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="jobs-table-body">
+                                <!-- Rows populated by jobs.js -->
+                            </tbody>
+                        </table>
+
+                        <!-- Empty State -->
+                        <div class="jobs-empty hidden" id="jobs-empty-state">
+                            <p class="placeholder-text">No jobs yet. Create one from the Generate section.</p>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="jobs-loading hidden" id="jobs-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading jobs...</p>
+                        </div>
                     </div>
                 </div>
             </section>
