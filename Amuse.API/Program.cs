@@ -42,7 +42,7 @@ try
     { 
         version = "1.0.0", 
         name = "AmuseAI API",
-        capabilities = new[] { "text2img", "img2img", "upscale", "models" }
+        capabilities = new[] { "text2img", "img2img", "upscale", "models", "jobs" }
     }));
 
     // POST /api/generate/text2img - creates a job to generate image from text prompt
