@@ -84,9 +84,7 @@ try
             Log.Error(ex, "Error generating image");
             return Results.StatusCode(500);
         }
-    })
-    .WithName("GenerateTextToImage")
-    .WithOpenApi();
+    });
 
     var urls = builder.WebHost.GetSetting("urls") ?? "http://localhost:5000";
     Log.Information("Amuse.API listening on {Urls}", urls);
