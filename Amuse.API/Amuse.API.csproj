@@ -13,6 +13,12 @@
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageReference Include="OnnxStack.Core" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.StableDiffusion" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.ImageUpscaler" Version="0.60.0" />
+    <PackageReference Include="OnnxStack.FeatureExtractor" Version="0.60.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.18.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
