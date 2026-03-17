@@ -23,15 +23,15 @@
 
 ### Image-to-Image Generation
 
-- [ ] **I2I-01**: POST /api/generate/img2img accepts prompt + input image, returns transformed image
-- [ ] **I2I-02**: Supports strength/denoise parameter (0.0-1.0)
-- [ ] **I2I-03**: Supports same generation parameters as T2I (steps, seed, etc.)
+- [x] **I2I-01**: POST /api/generate/img2img accepts prompt + input image, returns transformed image
+- [x] **I2I-02**: Supports strength/denoise parameter (0.0-1.0)
+- [x] **I2I-03**: Supports same generation parameters as T2I (steps, seed, etc.)
 
 ### Image Upscaling
 
-- [ ] **UPS-01**: POST /api/upscale accepts input image, returns upscaled image
-- [ ] **UPS-02**: Supports scale parameter (2x, 4x)
-- [ ] **UPS-03**: Supports tile_mode parameter for large images
+- [x] **UPS-01**: POST /api/upscale accepts input image, returns upscaled image
+- [x] **UPS-02**: Supports scale parameter (2x, 4x)
+- [x] **UPS-03**: Supports tile_mode parameter for large images
 
 ### Model Management
 
@@ -88,22 +88,22 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| API-01 | Phase 1 | Partial (code complete, build blocked) |
-| API-02 | Phase 1 | Partial (code complete, build blocked) |
-| API-03 | Phase 1 | Partial (code complete, build blocked) |
-| API-04 | Phase 1 | Partial (code complete, build blocked) |
+| API-01 | Phase 1 | Complete |
+| API-02 | Phase 1 | Complete |
+| API-03 | Phase 1 | Complete |
+| API-04 | Phase 1 | Complete |
 | T2I-01 | Phase 2 | Complete |
 | T2I-02 | Phase 2 | Complete |
 | T2I-03 | Phase 2 | Complete |
 | T2I-04 | Phase 2 | Complete |
 | T2I-05 | Phase 2 | Complete |
 | T2I-06 | Phase 2 | Complete |
-| I2I-01 | Phase 3 | Pending |
-| I2I-02 | Phase 3 | Pending |
-| I2I-03 | Phase 3 | Pending |
-| UPS-01 | Phase 3 | Pending |
-| UPS-02 | Phase 3 | Pending |
-| UPS-03 | Phase 3 | Pending |
+| I2I-01 | Phase 3 | Complete |
+| I2I-02 | Phase 3 | Complete |
+| I2I-03 | Phase 3 | Complete |
+| UPS-01 | Phase 3 | Complete |
+| UPS-02 | Phase 3 | Complete |
+| UPS-03 | Phase 3 | Complete |
 | MOD-01 | Phase 4 | Pending |
 | MOD-02 | Phase 4 | Pending |
 | MOD-03 | Phase 4 | Pending |
@@ -114,9 +114,9 @@
 | JOB-03 | Phase 5 | Pending |
 | JOB-04 | Phase 5 | Pending |
 | JOB-05 | Phase 5 | Pending |
-| CFG-01 | Phase 1 | Partial (code complete, build blocked) |
-| CFG-02 | Phase 1 | Partial (code complete, build blocked) |
-| CFG-03 | Phase 1 | Partial (code complete, build blocked) |
+| CFG-01 | Phase 1 | Complete |
+| CFG-02 | Phase 1 | Complete |
+| CFG-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 26 total
@@ -125,4 +125,4 @@
 
 ---
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-17 after initial definition*
+*Last updated: 2026-03-17 after Phase 3 completion*

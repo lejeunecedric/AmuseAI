@@ -7,8 +7,8 @@
 ## Phases
 
 - [x] **Phase 1: API Server Foundation** - Console app setup, basic server, config (completed 2026-03-17)
-- [ ] **Phase 2: Text-to-Image** - T2I generation endpoint
-- [ ] **Phase 3: Image Transformation** - I2I and Upscale endpoints
+- [x] **Phase 2: Text-to-Image** - T2I generation endpoint (completed 2026-03-17)
+- [x] **Phase 3: Image Transformation** - I2I and Upscale endpoints (completed 2026-03-17)
 - [ ] **Phase 4: Model Management** - Model listing, load/unload endpoints
 - [ ] **Phase 5: Job Queue** - Async job processing
 
@@ -53,7 +53,27 @@
 5. Seed parameter produces reproducible results
 6. Output returned as Base64 or file path
 
-**Plans:** 1 plan - 02-01-PLAN.md
+**Plans:** 1/1 plans complete - 02-01-PLAN.md, 02-01-SUMMARY.md
+
+---
+
+### Phase 3: Image Transformation
+
+**Goal:** Users can transform existing images via API
+
+**Depends on:** Phase 2
+
+**Requirements:** I2I-01, I2I-02, I2I-03, UPS-01, UPS-02, UPS-03
+
+**Success Criteria** (what must be TRUE):
+1. POST /api/generate/img2img accepts prompt + input image, returns transformed image
+2. Strength parameter controls transformation intensity (0.0-1.0)
+3. Same generation parameters available as T2I (steps, seed, guidance_scale)
+4. POST /api/upscale accepts input image, returns upscaled image
+5. Scale parameter supports 2x and 4x upscaling
+6. Tile mode parameter available for large images
+
+**Plans:** 1/1 plans complete - 03-01-SUMMARY.md
 
 ---
 
@@ -99,9 +119,9 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. API Server Foundation | 0/1 | Complete    | 2026-03-17 |
-| 2. Text-to-Image | 0/1 | Not started | - |
-| 3. Image Transformation | 0/1 | Not started | - |
+| 1. API Server Foundation | 1/1 | Complete    | 2026-03-17 |
+| 2. Text-to-Image | 1/1 | Complete    | 2026-03-17 |
+| 3. Image Transformation | 1/1 | Complete    | 2026-03-17 |
 | 4. Model Management | 0/1 | Not started | - |
 | 5. Job Queue | 0/1 | Not started | - |
 
