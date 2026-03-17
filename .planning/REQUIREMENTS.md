@@ -88,10 +88,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| API-01 | Phase 1 | Pending |
-| API-02 | Phase 1 | Pending |
-| API-03 | Phase 1 | Pending |
-| API-04 | Phase 1 | Pending |
+| API-01 | Phase 1 | Partial (code complete, build blocked) |
+| API-02 | Phase 1 | Partial (code complete, build blocked) |
+| API-03 | Phase 1 | Partial (code complete, build blocked) |
+| API-04 | Phase 1 | Partial (code complete, build blocked) |
 | T2I-01 | Phase 2 | Pending |
 | T2I-02 | Phase 2 | Pending |
 | T2I-03 | Phase 2 | Pending |
@@ -114,9 +114,9 @@
 | JOB-03 | Phase 5 | Pending |
 | JOB-04 | Phase 5 | Pending |
 | JOB-05 | Phase 5 | Pending |
-| CFG-01 | Phase 1 | Pending |
-| CFG-02 | Phase 1 | Pending |
-| CFG-03 | Phase 1 | Pending |
+| CFG-01 | Phase 1 | Partial (code complete, build blocked) |
+| CFG-02 | Phase 1 | Partial (code complete, build blocked) |
+| CFG-03 | Phase 1 | Partial (code complete, build blocked) |
 
 **Coverage:**
 - v1 requirements: 26 total
