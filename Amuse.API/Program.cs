@@ -1,5 +1,7 @@
 using Serilog;
 using Serilog.Events;
+using Amuse.API.Models;
+using Amuse.API.Services;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -14,6 +16,9 @@ try
     Log.Information("Starting Amuse.API...");
 
     var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+    builder.Services.AddScoped<StableDiffusionService>();
 
     builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(context.Configuration)
@@ -36,6 +41,52 @@ try
         name = "AmuseAI API",
         capabilities = new[] { "text2img", "img2img", "upscale", "models" }
     }));
+
+    // POST /api/generate/text2img - generates image from text prompt
+    app.MapPost("/api/generate/text2img", async (Text2ImgRequest request, StableDiffusionService stableDiffusionService) =>
+    {
+        try
+        {
+            if (!request.Prompt?.Trim()?.Any() ?? true)
+            {
+                return Results.BadRequest(new { error = "Prompt is required" });
+            }
+
+            // Validate width and height
+            if (request.Width < 512 || request.Width > 1024 || request.Height < 512 || request.Height > 1024)
+            {
+                return Results.BadRequest(new { error = "Width and height must be between 512 and 1024 pixels" });
+            }
+
+            // Validate steps
+            if (request.Steps < 1 || request.Steps > 100)
+            {
+                return Results.BadRequest(new { error = "Steps must be between 1 and 100" });
+            }
+
+            // Validate guidance scale
+            if (request.GuidanceScale < 0.0f || request.GuidanceScale > 20.0f)
+            {
+                return Results.BadRequest(new { error = "Guidance scale must be between 0.0 and 20.0" });
+            }
+
+            // Generate the image
+            var base64Image = await stableDiffusionService.GenerateAsync(request);
+
+            return Results.Ok(new { image = base64Image });
+        }
+        catch (System.ArgumentException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error generating image");
+            return Results.StatusCode(500);
+        }
+    })
+    .WithName("GenerateTextToImage")
+    .WithOpenApi();
 
     var urls = builder.WebHost.GetSetting("urls") ?? "http://localhost:5000";
     Log.Information("Amuse.API listening on {Urls}", urls);

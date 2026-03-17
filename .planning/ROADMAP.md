@@ -53,27 +53,7 @@
 5. Seed parameter produces reproducible results
 6. Output returned as Base64 or file path
 
-**Plans:** 1 plan - 01-01-PLAN.md
-
----
-
-### Phase 3: Image Transformation
-
-**Goal:** Users can transform images and upscale via API
-
-**Depends on:** Phase 2
-
-**Requirements:** I2I-01, I2I-02, I2I-03, UPS-01, UPS-02, UPS-03
-
-**Success Criteria** (what must be TRUE):
-1. POST /api/generate/img2img accepts prompt + image, returns transformed image
-2. Strength parameter affects transformation intensity
-3. All T2I parameters (steps, seed, etc.) work for I2I
-4. POST /api/upscale accepts image, returns upscaled version
-5. Scale parameter works (2x, 4x)
-6. Tile mode works for large images
-
-**Plans:** 1 plan - 01-01-PLAN.md
+**Plans:** 1 plan - 02-01-PLAN.md
 
 ---
 
