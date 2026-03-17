@@ -33,7 +33,7 @@
 6. Model paths configurable
 7. Device (CPU/DirectML) configurable
 
-**Plans:** TBD
+**Plans:** 1 plan - 01-01-PLAN.md
 
 ---
 
@@ -53,7 +53,7 @@
 5. Seed parameter produces reproducible results
 6. Output returned as Base64 or file path
 
-**Plans:** TBD
+**Plans:** 1 plan - 01-01-PLAN.md
 
 ---
 
@@ -73,7 +73,7 @@
 5. Scale parameter works (2x, 4x)
 6. Tile mode works for large images
 
-**Plans:** TBD
+**Plans:** 1 plan - 01-01-PLAN.md
 
 ---
 
@@ -92,7 +92,7 @@
 4. POST /api/models/{id}/unload frees model from memory
 5. GET /api/models/loaded returns currently loaded models
 
-**Plans:** TBD
+**Plans:** 1 plan - 01-01-PLAN.md
 
 ---
 
@@ -111,7 +111,7 @@
 4. DELETE /api/jobs/{id} cancels pending/running job
 5. Job status accurately reflects: pending, processing, completed, failed, cancelled
 
-**Plans:** TBD
+**Plans:** 1 plan - 01-01-PLAN.md
 
 ---
 
@@ -119,7 +119,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. API Server Foundation | 0/1 | Not started | - |
+| 1. API Server Foundation | 0/1 | Ready to execute | - |
 | 2. Text-to-Image | 0/1 | Not started | - |
 | 3. Image Transformation | 0/1 | Not started | - |
 | 4. Model Management | 0/1 | Not started | - |
