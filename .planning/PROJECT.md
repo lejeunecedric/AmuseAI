@@ -12,25 +12,32 @@ Enable automated, programmatic AI image/video generation through a REST API, all
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ API server runs as standalone console application (v1.0)
+- ✓ Text-to-image generation endpoint (v1.0)
+- ✓ Image-to-image generation endpoint (v1.0)
+- ✓ Image upscaling endpoint (v1.0)
+- ✓ Model management endpoints (list, load, unload) (v1.0)
+- ✓ Job queue for async operations (v1.0)
+- ✓ Job status tracking and retrieval (v1.0)
 
 ### Active
 
-- [ ] API server runs as standalone console application
-- [ ] Text-to-image generation endpoint
-- [ ] Image-to-image generation endpoint
-- [ ] Image upscaling endpoint
-- [ ] Model management endpoints (list, load, unload)
-- [ ] Job queue for batch/long-running operations
-- [ ] Job status tracking and retrieval
+- [ ] Web-based API testing interface
+- [ ] Real-time job monitoring dashboard
+- [ ] Interactive model management UI
+- [ ] Request/response inspector
+- [ ] Inline image display for generated results
+- [ ] Form-based parameter input for all endpoints
 
 ### Out of Scope
 
 - WPF UI integration — headless runs separately
 - User authentication — local-only open API
-- Web UI dashboard — CLI + curl usage only
+- Production web dashboard — this is a dev/testing tool only
 - Video generation via API — defer to v2
 - Real-time WebSocket streaming — polling only for v1
+- Mobile app — not needed for API testing
+- Advanced user management — single-user dev tool
 
 ## Context
 
@@ -59,10 +66,22 @@ Enable automated, programmatic AI image/video generation through a REST API, all
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Separate console app | Clean separation, can deploy headless | — Pending |
-| No authentication | Local-only use, simpler for v1 | — Pending |
-| In-memory job queue | Fast for single-instance, can add Redis later | — Pending |
-| Polling for status | Simpler than WebSocket for v1 | — Pending |
+| Separate console app | Clean separation, can deploy headless | ✓ Good |
+| No authentication | Local-only use, simpler for v1 | ✓ Good |
+| In-memory job queue | Fast for single-instance, can add Redis later | ✓ Good |
+| Polling for status | Simpler than WebSocket for v1 | ✓ Good |
+
+## Current Milestone: v1.1 API Web Client
+
+**Goal:** Create a web-based testing tool for developers to interact with the AmuseAI API
+
+**Target features:**
+- Web UI for testing all API endpoints (T2I, I2I, Upscale)
+- Real-time job status monitoring with auto-refresh
+- Model management interface (list, load, unload)
+- Request/response inspection for debugging
+- Simple form-based interface for parameter input
+- Display generated images inline
 
 ---
-*Last updated: 2026-03-17 after initialization*
+*Last updated: 2026-03-17 after v1.0 completion*
