@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amuse.API", "Amuse.API\Amus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amuse.API.Tests", "Amuse.API.Tests\Amuse.API.Tests.csproj", "{0E3C9780-FC0B-4640-95A1-F632291E2DA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amuse.Web", "Amuse.Web\Amuse.Web.csproj", "{E8B69320-AAE8-43C6-8C01-851BBBC3DCCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,5 +23,9 @@ Global
 		{0E3C9780-FC0B-4640-95A1-F632291E2DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E3C9780-FC0B-4640-95A1-F632291E2DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E3C9780-FC0B-4640-95A1-F632291E2DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B69320-AAE8-43C6-8C01-851BBBC3DCCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B69320-AAE8-43C6-8C01-851BBBC3DCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B69320-AAE8-43C6-8C01-851BBBC3DCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B69320-AAE8-43C6-8C01-851BBBC3DCCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

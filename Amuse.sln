@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amuse.UI", "Amuse.UI\Amuse.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amuse.Launcher", "Amuse.Launcher\Amuse.Launcher.csproj", "{254B7AB5-CF3B-4EED-96BB-D07721F7F45E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amuse.Web", "Amuse.Web\Amuse.Web.csproj", "{2E95A815-314C-4955-8497-057F62F16314}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Direct|x64 = Debug_Direct|x64
@@ -29,6 +31,14 @@ Global
 		{254B7AB5-CF3B-4EED-96BB-D07721F7F45E}.Release|x64.Build.0 = Release|x64
 		{254B7AB5-CF3B-4EED-96BB-D07721F7F45E}.Release-Installer|x64.ActiveCfg = Release|x64
 		{254B7AB5-CF3B-4EED-96BB-D07721F7F45E}.Release-Installer|x64.Build.0 = Release|x64
+		{2E95A815-314C-4955-8497-057F62F16314}.Debug_Direct|x64.ActiveCfg = Debug|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Debug_Direct|x64.Build.0 = Debug|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Release|x64.Build.0 = Release|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Release-Installer|x64.ActiveCfg = Debug|Any CPU
+		{2E95A815-314C-4955-8497-057F62F16314}.Release-Installer|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
