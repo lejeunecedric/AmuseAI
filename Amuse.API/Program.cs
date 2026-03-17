@@ -2,6 +2,7 @@ using Serilog;
 using Serilog.Events;
 using Amuse.API.Models;
 using Amuse.API.Services;
+using System.Drawing;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -86,6 +87,93 @@ try
         }
     });
 
+    // POST /api/generate/img2img - transforms an input image based on a prompt
+    app.MapPost("/api/generate/img2img", async (Img2ImgRequest request, StableDiffusionService stableDiffusionService) =>
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(request.Prompt))
+            {
+                return Results.BadRequest(new { error = "Prompt is required" });
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Image))
+            {
+                return Results.BadRequest(new { error = "Image is required (Base64 encoded)" });
+            }
+
+            // Validate width and height
+            if (request.Width < 512 || request.Width > 1024 || request.Height < 512 || request.Height > 1024)
+            {
+                return Results.BadRequest(new { error = "Width and height must be between 512 and 1024 pixels" });
+            }
+
+            // Validate steps
+            if (request.Steps < 1 || request.Steps > 100)
+            {
+                return Results.BadRequest(new { error = "Steps must be between 1 and 100" });
+            }
+
+            // Validate guidance scale
+            if (request.GuidanceScale < 0.0f || request.GuidanceScale > 20.0f)
+            {
+                return Results.BadRequest(new { error = "Guidance scale must be between 0.0 and 20.0" });
+            }
+
+            // Validate strength
+            if (request.Strength < 0.0f || request.Strength > 1.0f)
+            {
+                return Results.BadRequest(new { error = "Strength must be between 0.0 and 1.0" });
+            }
+
+            // Transform the image
+            var base64Image = await stableDiffusionService.Img2ImgAsync(request);
+
+            return Results.Ok(new { image = base64Image });
+        }
+        catch (System.ArgumentException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error transforming image");
+            return Results.StatusCode(500);
+        }
+    });
+
+    // POST /api/upscale - upscales an input image
+    app.MapPost("/api/upscale", async (UpscaleRequest request, StableDiffusionService stableDiffusionService) =>
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(request.Image))
+            {
+                return Results.BadRequest(new { error = "Image is required (Base64 encoded)" });
+            }
+
+            // Validate scale
+            if (request.Scale != 2 && request.Scale != 4)
+            {
+                return Results.BadRequest(new { error = "Scale must be 2 or 4" });
+            }
+
+            // Upscale the image
+            var base64Image = await stableDiffusionService.UpscaleAsync(request);
+
+            return Results.Ok(new { image = base64Image, scale = request.Scale });
+        }
+        catch (System.ArgumentException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error upscaling image");
+            return Results.StatusCode(500);
+        }
+    });
+
     var urls = builder.WebHost.GetSetting("urls") ?? "http://localhost:5000";
     Log.Information("Amuse.API listening on {Urls}", urls);
 
@@ -103,3 +191,4 @@ finally
 
 // Make Program class public for testing
 public partial class Program { }
+
