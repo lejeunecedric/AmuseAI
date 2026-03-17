@@ -126,10 +126,148 @@
             <section id="section-generate-t2i" class="content-section">
                 <div class="section-card">
                     <h3>Text to Image</h3>
-                    <p class="section-description">Generate images from text prompts using AI models.</p>
-                    <div class="form-placeholder">
-                        <p class="placeholder-text">Form coming soon...</p>
-                    </div>
+                    <p class="section-description">Generate images from text prompts using AI models. Configure parameters below and click Generate to create an image.</p>
+                    
+                    <form id="text2img-form" class="generation-form">
+                        <!-- Prompt -->
+                        <div class="form-group">
+                            <label for="t2i-prompt" class="form-label">Prompt *</label>
+                            <textarea 
+                                id="t2i-prompt" 
+                                name="prompt" 
+                                class="form-textarea" 
+                                rows="3" 
+                                placeholder="Describe the image you want to generate... (e.g., 'a beautiful sunset over mountains, digital art')"
+                                required
+                            ></textarea>
+                            <span class="form-help">Be descriptive for better results</span>
+                        </div>
+
+                        <!-- Negative Prompt -->
+                        <div class="form-group">
+                            <label for="t2i-negative" class="form-label">Negative Prompt</label>
+                            <textarea 
+                                id="t2i-negative" 
+                                name="negativePrompt" 
+                                class="form-textarea" 
+                                rows="2" 
+                                placeholder="What to avoid... (e.g., 'blurry, low quality, distorted')"
+                            ></textarea>
+                            <span class="form-help">Optional: describe what you don't want in the image</span>
+                        </div>
+
+                        <!-- Width and Height -->
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label for="t2i-width" class="form-label">Width</label>
+                                <input 
+                                    type="number" 
+                                    id="t2i-width" 
+                                    name="width" 
+                                    class="form-input" 
+                                    value="512" 
+                                    min="512" 
+                                    max="1024" 
+                                    step="64"
+                                >
+                                <span class="form-help">512-1024 pixels (step 64)</span>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="t2i-height" class="form-label">Height</label>
+                                <input 
+                                    type="number" 
+                                    id="t2i-height" 
+                                    name="height" 
+                                    class="form-input" 
+                                    value="512" 
+                                    min="512" 
+                                    max="1024" 
+                                    step="64"
+                                >
+                                <span class="form-help">512-1024 pixels (step 64)</span>
+                            </div>
+                        </div>
+
+                        <!-- Steps -->
+                        <div class="form-group">
+                            <label for="t2i-steps" class="form-label">
+                                Steps: <span class="slider-value" id="t2i-steps-value">20</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="t2i-steps" 
+                                name="steps" 
+                                class="form-slider" 
+                                value="20" 
+                                min="1" 
+                                max="100" 
+                                step="1"
+                            >
+                            <span class="form-help">More steps = higher quality but slower (20-50 recommended)</span>
+                        </div>
+
+                        <!-- Guidance Scale -->
+                        <div class="form-group">
+                            <label for="t2i-guidance" class="form-label">
+                                Guidance Scale: <span class="slider-value" id="t2i-guidance-value">7.5</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="t2i-guidance" 
+                                name="guidanceScale" 
+                                class="form-slider" 
+                                value="7.5" 
+                                min="0" 
+                                max="20" 
+                                step="0.5"
+                            >
+                            <span class="form-help">How closely to follow the prompt (7-8 is a good balance)</span>
+                        </div>
+
+                        <!-- Seed -->
+                        <div class="form-group">
+                            <label for="t2i-seed" class="form-label">Seed</label>
+                            <input 
+                                type="number" 
+                                id="t2i-seed" 
+                                name="seed" 
+                                class="form-input" 
+                                placeholder="Random if empty"
+                            >
+                            <span class="form-help">Optional: use same seed for reproducible results</span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="t2i-submit">
+                                <span class="btn-text">Generate Image</span>
+                                <span class="btn-loading hidden">Generating...</span>
+                            </button>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="result-container hidden" id="t2i-result">
+                            <h4>Generated Image</h4>
+                            <div class="image-result" id="t2i-image-container"></div>
+                            <div class="job-info" id="t2i-job-info"></div>
+                        </div>
+
+                        <!-- Raw Request JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="t2i-request-json">
+                                <span class="toggle-icon">▶</span> Request JSON
+                            </h4>
+                            <pre class="json-display hidden" id="t2i-request-json"><code></code></pre>
+                        </div>
+
+                        <!-- Raw Response JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="t2i-response-json">
+                                <span class="toggle-icon">▶</span> Response JSON
+                            </h4>
+                            <pre class="json-display hidden" id="t2i-response-json"><code></code></pre>
+                        </div>
+                    </form>
                 </div>
             </section>
 
@@ -137,10 +275,193 @@
             <section id="section-generate-i2i" class="content-section">
                 <div class="section-card">
                     <h3>Image to Image</h3>
-                    <p class="section-description">Transform an existing image based on a text prompt.</p>
-                    <div class="form-placeholder">
-                        <p class="placeholder-text">Form coming soon...</p>
-                    </div>
+                    <p class="section-description">Transform an existing image based on a text prompt. Upload an image and describe how you want it transformed.</p>
+                    
+                    <form id="img2img-form" class="generation-form">
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label class="form-label">Source Image *</label>
+                            <div class="drop-zone" id="i2i-drop-zone">
+                                <input 
+                                    type="file" 
+                                    id="i2i-image" 
+                                    name="imageFile" 
+                                    class="file-input" 
+                                    accept="image/*"
+                                    required
+                                >
+                                <div class="drop-zone-content">
+                                    <span class="drop-icon">📁</span>
+                                    <p class="drop-text">Drag & drop an image here, or click to browse</p>
+                                    <p class="drop-hint">Supports: JPG, PNG, WEBP (max 5MB)</p>
+                                </div>
+                                <div class="image-preview-container hidden" id="i2i-preview-container">
+                                    <img id="i2i-preview" class="image-preview" alt="Preview">
+                                    <div class="image-info" id="i2i-image-info"></div>
+                                    <button type="button" class="btn btn-secondary btn-small" id="i2i-clear-image">
+                                        Clear Image
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="i2i-image-base64" name="image">
+                        </div>
+
+                        <!-- Prompt -->
+                        <div class="form-group">
+                            <label for="i2i-prompt" class="form-label">Prompt *</label>
+                            <textarea 
+                                id="i2i-prompt" 
+                                name="prompt" 
+                                class="form-textarea" 
+                                rows="3" 
+                                placeholder="Describe the transformation... (e.g., 'convert to oil painting style')"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <!-- Negative Prompt -->
+                        <div class="form-group">
+                            <label for="i2i-negative" class="form-label">Negative Prompt</label>
+                            <textarea 
+                                id="i2i-negative" 
+                                name="negativePrompt" 
+                                class="form-textarea" 
+                                rows="2" 
+                                placeholder="What to avoid..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Strength -->
+                        <div class="form-group">
+                            <label for="i2i-strength" class="form-label">
+                                Strength: <span class="slider-value" id="i2i-strength-value">0.75</span>
+                                <span class="strength-label" id="i2i-strength-label">Balanced</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="i2i-strength" 
+                                name="strength" 
+                                class="form-slider strength-slider" 
+                                value="0.75" 
+                                min="0" 
+                                max="1" 
+                                step="0.05"
+                            >
+                            <div class="strength-labels">
+                                <span>Preserve (0.0)</span>
+                                <span>Balanced (0.5)</span>
+                                <span>Transform (1.0)</span>
+                            </div>
+                            <span class="form-help">How much to change the original image</span>
+                        </div>
+
+                        <!-- Width and Height -->
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label for="i2i-width" class="form-label">Width</label>
+                                <input 
+                                    type="number" 
+                                    id="i2i-width" 
+                                    name="width" 
+                                    class="form-input" 
+                                    value="512" 
+                                    min="512" 
+                                    max="1024" 
+                                    step="64"
+                                >
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="i2i-height" class="form-label">Height</label>
+                                <input 
+                                    type="number" 
+                                    id="i2i-height" 
+                                    name="height" 
+                                    class="form-input" 
+                                    value="512" 
+                                    min="512" 
+                                    max="1024" 
+                                    step="64"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Steps -->
+                        <div class="form-group">
+                            <label for="i2i-steps" class="form-label">
+                                Steps: <span class="slider-value" id="i2i-steps-value">20</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="i2i-steps" 
+                                name="steps" 
+                                class="form-slider" 
+                                value="20" 
+                                min="1" 
+                                max="100" 
+                                step="1"
+                            >
+                        </div>
+
+                        <!-- Guidance Scale -->
+                        <div class="form-group">
+                            <label for="i2i-guidance" class="form-label">
+                                Guidance Scale: <span class="slider-value" id="i2i-guidance-value">7.5</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="i2i-guidance" 
+                                name="guidanceScale" 
+                                class="form-slider" 
+                                value="7.5" 
+                                min="0" 
+                                max="20" 
+                                step="0.5"
+                            >
+                        </div>
+
+                        <!-- Seed -->
+                        <div class="form-group">
+                            <label for="i2i-seed" class="form-label">Seed</label>
+                            <input 
+                                type="number" 
+                                id="i2i-seed" 
+                                name="seed" 
+                                class="form-input" 
+                                placeholder="Random if empty"
+                            >
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="i2i-submit">
+                                <span class="btn-text">Transform Image</span>
+                                <span class="btn-loading hidden">Transforming...</span>
+                            </button>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="result-container hidden" id="i2i-result">
+                            <h4>Transformed Image</h4>
+                            <div class="image-result" id="i2i-image-container"></div>
+                            <div class="job-info" id="i2i-job-info"></div>
+                        </div>
+
+                        <!-- Raw Request JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="i2i-request-json">
+                                <span class="toggle-icon">▶</span> Request JSON
+                            </h4>
+                            <pre class="json-display hidden" id="i2i-request-json"><code></code></pre>
+                        </div>
+
+                        <!-- Raw Response JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="i2i-response-json">
+                                <span class="toggle-icon">▶</span> Response JSON
+                            </h4>
+                            <pre class="json-display hidden" id="i2i-response-json"><code></code></pre>
+                        </div>
+                    </form>
                 </div>
             </section>
 
@@ -148,10 +469,102 @@
             <section id="section-generate-upscale" class="content-section">
                 <div class="section-card">
                     <h3>Upscale</h3>
-                    <p class="section-description">Enhance image resolution using AI upscaling.</p>
-                    <div class="form-placeholder">
-                        <p class="placeholder-text">Form coming soon...</p>
-                    </div>
+                    <p class="section-description">Enhance image resolution using AI upscaling. Upload an image and select your desired scale factor.</p>
+                    
+                    <form id="upscale-form" class="generation-form">
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label class="form-label">Source Image *</label>
+                            <div class="drop-zone" id="upscale-drop-zone">
+                                <input 
+                                    type="file" 
+                                    id="upscale-image" 
+                                    name="imageFile" 
+                                    class="file-input" 
+                                    accept="image/*"
+                                    required
+                                >
+                                <div class="drop-zone-content">
+                                    <span class="drop-icon">📁</span>
+                                    <p class="drop-text">Drag & drop an image here, or click to browse</p>
+                                    <p class="drop-hint">Supports: JPG, PNG, WEBP (max 5MB)</p>
+                                </div>
+                                <div class="image-preview-container hidden" id="upscale-preview-container">
+                                    <img id="upscale-preview" class="image-preview" alt="Preview">
+                                    <div class="image-info" id="upscale-image-info"></div>
+                                    <button type="button" class="btn btn-secondary btn-small" id="upscale-clear-image">
+                                        Clear Image
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="upscale-image-base64" name="image">
+                        </div>
+
+                        <!-- Scale Selection -->
+                        <div class="form-group">
+                            <label class="form-label">Scale Factor</label>
+                            <div class="scale-selector">
+                                <label class="scale-option">
+                                    <input type="radio" name="scale" value="2" checked>
+                                    <span class="scale-button">2x</span>
+                                    <span class="scale-description">Double resolution</span>
+                                </label>
+                                <label class="scale-option">
+                                    <input type="radio" name="scale" value="4">
+                                    <span class="scale-button">4x</span>
+                                    <span class="scale-description">Quadruple resolution</span>
+                                </label>
+                            </div>
+                            <div class="output-dimensions" id="upscale-dimensions">
+                                <span class="dim-input">Input: -- x --</span>
+                                <span class="dim-arrow">→</span>
+                                <span class="dim-output" id="upscale-output-dim">Output: -- x --</span>
+                            </div>
+                        </div>
+
+                        <!-- Tile Mode -->
+                        <div class="form-group">
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" id="upscale-tile" name="tileMode" class="form-checkbox">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">
+                                    Enable Tile Mode
+                                    <span class="tooltip" title="Processes image in tiles to save memory. Useful for very large images.">ⓘ</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="upscale-submit">
+                                <span class="btn-text">Upscale Image</span>
+                                <span class="btn-loading hidden">Upscaling...</span>
+                            </button>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="result-container hidden" id="upscale-result">
+                            <h4>Upscaled Image</h4>
+                            <div class="image-result" id="upscale-image-container"></div>
+                            <div class="job-info" id="upscale-job-info"></div>
+                        </div>
+
+                        <!-- Raw Request JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="upscale-request-json">
+                                <span class="toggle-icon">▶</span> Request JSON
+                            </h4>
+                            <pre class="json-display hidden" id="upscale-request-json"><code></code></pre>
+                        </div>
+
+                        <!-- Raw Response JSON -->
+                        <div class="json-section">
+                            <h4 class="json-toggle" data-target="upscale-response-json">
+                                <span class="toggle-icon">▶</span> Response JSON
+                            </h4>
+                            <pre class="json-display hidden" id="upscale-response-json"><code></code></pre>
+                        </div>
+                    </form>
                 </div>
             </section>
 
