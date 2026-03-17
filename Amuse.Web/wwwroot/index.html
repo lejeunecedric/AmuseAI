@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AmuseAI Web Client - AI Image Generation API Testing Tool">
+    <title>AmuseAI Web Client</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Button -->
+    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+        <span class="hamburger"></span>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-header">
+            <h1 class="brand">AmuseAI</h1>
+            <span class="brand-subtitle">Web Client</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <button class="nav-link has-submenu" data-section="generate" aria-expanded="false">
+                        <span class="nav-icon">⚡</span>
+                        <span class="nav-text">Generate</span>
+                        <span class="nav-arrow">▶</span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#" data-section="generate-t2i" class="submenu-link">Text to Image</a></li>
+                        <li><a href="#" data-section="generate-i2i" class="submenu-link">Image to Image</a></li>
+                        <li><a href="#" data-section="generate-upscale" class="submenu-link">Upscale</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" data-section="jobs" class="nav-link">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Jobs</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" data-section="models" class="nav-link">
+                        <span class="nav-icon">🧠</span>
+                        <span class="nav-text">Models</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" data-section="inspector" class="nav-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-text">Inspector</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="api-status" id="api-status">
+                <span class="status-dot" id="status-dot"></span>
+                <span class="status-text" id="status-text">Checking...</span>
+            </div>
+            <div class="api-info">
+                <span class="api-label">API:</span>
+                <span class="api-url">localhost:5000</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile menu -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content">
+        <header class="content-header">
+            <h2 id="page-title" class="page-title">Welcome</h2>
+        </header>
+
+        <div class="content-body">
+            <!-- Welcome Section (Default) -->
+            <section id="section-welcome" class="content-section active">
+                <div class="welcome-card">
+                    <h3>AmuseAI Web Client</h3>
+                    <p>
+                        Welcome to the AmuseAI testing interface. This web client connects to your 
+                        local Amuse.API server for testing image generation capabilities.
+                    </p>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <span class="feature-icon">⚡</span>
+                            <h4>Generate</h4>
+                            <p>Create images from text prompts, transform existing images, or upscale them.</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">📋</span>
+                            <h4>Jobs</h4>
+                            <p>Monitor generation jobs and track their progress in real-time.</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🧠</span>
+                            <h4>Models</h4>
+                            <p>Manage AI models - load, unload, and view model information.</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🔍</span>
+                            <h4>Inspector</h4>
+                            <p>Debug API calls and inspect request/response details.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="getting-started">
+                        <h4>Getting Started</h4>
+                        <ol>
+                            <li>Ensure Amuse.API is running on port 5000</li>
+                            <li>Check the API status indicator in the sidebar</li>
+                            <li>Select a section from the sidebar to begin</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate: Text to Image -->
+            <section id="section-generate-t2i" class="content-section">
+                <div class="section-card">
+                    <h3>Text to Image</h3>
+                    <p class="section-description">Generate images from text prompts using AI models.</p>
+                    <div class="form-placeholder">
+                        <p class="placeholder-text">Form coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate: Image to Image -->
+            <section id="section-generate-i2i" class="content-section">
+                <div class="section-card">
+                    <h3>Image to Image</h3>
+                    <p class="section-description">Transform an existing image based on a text prompt.</p>
+                    <div class="form-placeholder">
+                        <p class="placeholder-text">Form coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Generate: Upscale -->
+            <section id="section-generate-upscale" class="content-section">
+                <div class="section-card">
+                    <h3>Upscale</h3>
+                    <p class="section-description">Enhance image resolution using AI upscaling.</p>
+                    <div class="form-placeholder">
+                        <p class="placeholder-text">Form coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Jobs -->
+            <section id="section-jobs" class="content-section">
+                <div class="section-card">
+                    <h3>Job Monitor</h3>
+                    <p class="section-description">View and manage generation jobs.</p>
+                    <div class="jobs-placeholder">
+                        <p class="placeholder-text">Job list coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Models -->
+            <section id="section-models" class="content-section">
+                <div class="section-card">
+                    <h3>Model Management</h3>
+                    <p class="section-description">Load, unload, and view AI models.</p>
+                    <div class="models-placeholder">
+                        <p class="placeholder-text">Model list coming soon...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inspector -->
+            <section id="section-inspector" class="content-section">
+                <div class="section-card">
+                    <h3>API Inspector</h3>
+                    <p class="section-description">Debug API calls and inspect responses.</p>
+                    <div class="inspector-placeholder">
+                        <p class="placeholder-text">Inspector tools coming soon...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
