@@ -21,6 +21,7 @@ try
     // Add services to the container.
     builder.Services.AddScoped<StableDiffusionService>();
     builder.Services.AddSingleton<ModelManagementService>();
+    builder.Services.AddHostedService<JobQueueService>();
 
     builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(context.Configuration)
@@ -44,8 +45,8 @@ try
         capabilities = new[] { "text2img", "img2img", "upscale", "models" }
     }));
 
-    // POST /api/generate/text2img - generates image from text prompt
-    app.MapPost("/api/generate/text2img", async (Text2ImgRequest request, StableDiffusionService stableDiffusionService) =>
+    // POST /api/generate/text2img - creates a job to generate image from text prompt
+    app.MapPost("/api/generate/text2img", async (Text2ImgRequest request, JobQueueService jobQueueService) =>
     {
         try
         {
@@ -72,10 +73,16 @@ try
                 return Results.BadRequest(new { error = "Guidance scale must be between 0.0 and 20.0" });
             }
 
-            // Generate the image
-            var base64Image = await stableDiffusionService.GenerateAsync(request);
+            // Create a job and return immediately with job ID
+            var job = await jobQueueService.CreateJobAsync("text2img", request);
 
-            return Results.Ok(new { image = base64Image });
+            return Results.Accepted($"/api/jobs/{job.Id}", new
+            {
+                jobId = job.Id,
+                status = job.Status.ToString().ToLower(),
+                message = "Job created successfully",
+                checkStatusAt = $"/api/jobs/{job.Id}"
+            });
         }
         catch (System.ArgumentException ex)
         {
@@ -83,13 +90,13 @@ try
         }
         catch (System.Exception ex)
         {
-            Log.Error(ex, "Error generating image");
+            Log.Error(ex, "Error creating text2img job");
             return Results.StatusCode(500);
         }
     });
 
-    // POST /api/generate/img2img - transforms an input image based on a prompt
-    app.MapPost("/api/generate/img2img", async (Img2ImgRequest request, StableDiffusionService stableDiffusionService) =>
+    // POST /api/generate/img2img - creates a job to transform an input image
+    app.MapPost("/api/generate/img2img", async (Img2ImgRequest request, JobQueueService jobQueueService) =>
     {
         try
         {
@@ -127,10 +134,16 @@ try
                 return Results.BadRequest(new { error = "Strength must be between 0.0 and 1.0" });
             }
 
-            // Transform the image
-            var base64Image = await stableDiffusionService.Img2ImgAsync(request);
+            // Create a job and return immediately with job ID
+            var job = await jobQueueService.CreateJobAsync("img2img", request);
 
-            return Results.Ok(new { image = base64Image });
+            return Results.Accepted($"/api/jobs/{job.Id}", new
+            {
+                jobId = job.Id,
+                status = job.Status.ToString().ToLower(),
+                message = "Job created successfully",
+                checkStatusAt = $"/api/jobs/{job.Id}"
+            });
         }
         catch (System.ArgumentException ex)
         {
@@ -138,13 +151,13 @@ try
         }
         catch (System.Exception ex)
         {
-            Log.Error(ex, "Error transforming image");
+            Log.Error(ex, "Error creating img2img job");
             return Results.StatusCode(500);
         }
     });
 
-    // POST /api/upscale - upscales an input image
-    app.MapPost("/api/upscale", async (UpscaleRequest request, StableDiffusionService stableDiffusionService) =>
+    // POST /api/upscale - creates a job to upscale an input image
+    app.MapPost("/api/upscale", async (UpscaleRequest request, JobQueueService jobQueueService) =>
     {
         try
         {
@@ -159,10 +172,16 @@ try
                 return Results.BadRequest(new { error = "Scale must be 2 or 4" });
             }
 
-            // Upscale the image
-            var base64Image = await stableDiffusionService.UpscaleAsync(request);
+            // Create a job and return immediately with job ID
+            var job = await jobQueueService.CreateJobAsync("upscale", request);
 
-            return Results.Ok(new { image = base64Image, scale = request.Scale });
+            return Results.Accepted($"/api/jobs/{job.Id}", new
+            {
+                jobId = job.Id,
+                status = job.Status.ToString().ToLower(),
+                message = "Job created successfully",
+                checkStatusAt = $"/api/jobs/{job.Id}"
+            });
         }
         catch (System.ArgumentException ex)
         {
@@ -170,7 +189,7 @@ try
         }
         catch (System.Exception ex)
         {
-            Log.Error(ex, "Error upscaling image");
+            Log.Error(ex, "Error creating upscale job");
             return Results.StatusCode(500);
         }
     });
@@ -282,6 +301,63 @@ try
         catch (System.Exception ex)
         {
             Log.Error(ex, "Error unloading model {ModelId}", id);
+            return Results.StatusCode(500);
+        }
+    });
+
+    // GET /api/jobs - returns list of all jobs
+    app.MapGet("/api/jobs", async (JobQueueService jobQueueService) =>
+    {
+        try
+        {
+            var jobs = await jobQueueService.GetAllJobsAsync();
+            return Results.Ok(new { jobs });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error retrieving jobs");
+            return Results.StatusCode(500);
+        }
+    });
+
+    // GET /api/jobs/{id} - returns specific job details
+    app.MapGet("/api/jobs/{id}", async (string id, JobQueueService jobQueueService) =>
+    {
+        try
+        {
+            var job = await jobQueueService.GetJobAsync(id);
+
+            if (job == null)
+            {
+                return Results.NotFound(new { error = $"Job '{id}' not found" });
+            }
+
+            return Results.Ok(job);
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error retrieving job {JobId}", id);
+            return Results.StatusCode(500);
+        }
+    });
+
+    // DELETE /api/jobs/{id} - cancels a job
+    app.MapDelete("/api/jobs/{id}", async (string id, JobQueueService jobQueueService) =>
+    {
+        try
+        {
+            var success = await jobQueueService.CancelJobAsync(id);
+
+            if (!success)
+            {
+                return Results.BadRequest(new { error = $"Job '{id}' not found or cannot be cancelled" });
+            }
+
+            return Results.Ok(new { message = $"Job '{id}' cancelled successfully", jobId = id });
+        }
+        catch (System.Exception ex)
+        {
+            Log.Error(ex, "Error cancelling job {JobId}", id);
             return Results.StatusCode(500);
         }
     });
