@@ -7,6 +7,7 @@ import { checkApiConnection, API_BASE_URL } from './api.js';
 import { initNavigation } from './navigation.js';
 import { initAllForms } from './forms.js';
 import { initImageHandlers } from './images.js';
+import { initJobsMonitor, startPolling, stopPolling } from './jobs.js';
 
 // Connection check interval (5 seconds)
 const CONNECTION_CHECK_INTERVAL = 5000;
@@ -33,6 +34,12 @@ function init() {
     
     // Initialize image handlers
     initImageHandlers();
+    
+    // Initialize jobs monitor
+    initJobsMonitor();
+    
+    // Setup navigation change listener for jobs polling
+    setupJobsPollingOnNavigation();
     
     // Check API connection immediately
     updateConnectionStatus();
@@ -79,13 +86,48 @@ function showConnected(latency) {
  */
 function showDisconnected(error) {
     if (!statusDot || !statusText) return;
-    
+
     statusDot.className = 'status-dot disconnected';
     statusDot.title = `Disconnected: ${error}`;
     statusText.textContent = 'Disconnected';
     statusText.title = `Error: ${error}`;
-    
+
     console.log(`❌ API Disconnected: ${error}`);
+}
+
+/**
+ * Setup navigation change listener to manage jobs polling
+ */
+function setupJobsPollingOnNavigation() {
+    const jobsSection = document.getElementById('section-jobs');
+    if (!jobsSection) return;
+
+    // Use MutationObserver to detect when jobs section becomes active
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const isActive = jobsSection.classList.contains('active');
+                if (isActive) {
+                    console.log('📋 Jobs section activated - starting polling');
+                    startPolling();
+                } else {
+                    console.log('📋 Jobs section deactivated - stopping polling');
+                    stopPolling();
+                }
+            }
+        });
+    });
+
+    observer.observe(jobsSection, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+
+    // Check initial state
+    if (jobsSection.classList.contains('active')) {
+        console.log('📋 Jobs section initially active - starting polling');
+        startPolling();
+    }
 }
 
 // Initialize when DOM is ready
