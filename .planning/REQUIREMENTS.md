@@ -7,10 +7,10 @@
 
 ### API Server
 
-- [ ] **API-01**: Server starts as console application on configurable port (default 5000)
-- [ ] **API-02**: Server responds to health check at GET /health
-- [ ] **API-03**: Server returns API info at GET /api info (version, capabilities)
-- [ ] **API-04**: Server graceful shutdown on Ctrl+C or kill signal
+- [x] **API-01**: Server starts as console application on configurable port (default 5000)
+- [x] **API-02**: Server responds to health check at GET /health
+- [x] **API-03**: Server returns API info at GET /api info (version, capabilities)
+- [x] **API-04**: Server graceful shutdown on Ctrl+C or kill signal
 
 ### Text-to-Image Generation
 
@@ -51,9 +51,9 @@
 
 ### Configuration
 
-- [ ] **CFG-01**: Port configurable via appsettings.json or command line
-- [ ] **CFG-02**: Model paths configurable (default from existing AmuseAI settings)
-- [ ] **CFG-03**: Device (CPU/DirectML) configurable
+- [x] **CFG-01**: Port configurable via appsettings.json or command line
+- [x] **CFG-02**: Model paths configurable (default from existing AmuseAI settings)
+- [x] **CFG-03**: Device (CPU/DirectML) configurable
 
 ## v2 Requirements
 
