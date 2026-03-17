@@ -14,12 +14,12 @@
 
 ### Text-to-Image Generation
 
-- [ ] **T2I-01**: POST /api/generate/text2img accepts prompt, returns generated image
-- [ ] **T2I-02**: Supports negative_prompt parameter
-- [ ] **T2I-03**: Supports width, height parameters (512-1024)
-- [ ] **T2I-04**: Supports steps, guidance_scale parameters
-- [ ] **T2I-05**: Supports seed parameter for reproducibility
-- [ ] **T2I-06**: Returns image as Base64 or file path
+- [x] **T2I-01**: POST /api/generate/text2img accepts prompt, returns generated image
+- [x] **T2I-02**: Supports negative_prompt parameter
+- [x] **T2I-03**: Supports width, height parameters (512-1024)
+- [x] **T2I-04**: Supports steps, guidance_scale parameters
+- [x] **T2I-05**: Supports seed parameter for reproducibility
+- [x] **T2I-06**: Returns image as Base64 or file path
 
 ### Image-to-Image Generation
 
@@ -92,12 +92,12 @@
 | API-02 | Phase 1 | Partial (code complete, build blocked) |
 | API-03 | Phase 1 | Partial (code complete, build blocked) |
 | API-04 | Phase 1 | Partial (code complete, build blocked) |
-| T2I-01 | Phase 2 | Pending |
-| T2I-02 | Phase 2 | Pending |
-| T2I-03 | Phase 2 | Pending |
-| T2I-04 | Phase 2 | Pending |
-| T2I-05 | Phase 2 | Pending |
-| T2I-06 | Phase 2 | Pending |
+| T2I-01 | Phase 2 | Complete |
+| T2I-02 | Phase 2 | Complete |
+| T2I-03 | Phase 2 | Complete |
+| T2I-04 | Phase 2 | Complete |
+| T2I-05 | Phase 2 | Complete |
+| T2I-06 | Phase 2 | Complete |
 | I2I-01 | Phase 3 | Pending |
 | I2I-02 | Phase 3 | Pending |
 | I2I-03 | Phase 3 | Pending |
