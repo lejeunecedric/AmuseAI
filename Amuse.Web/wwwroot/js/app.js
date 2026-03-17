@@ -5,6 +5,8 @@
 
 import { checkApiConnection, API_BASE_URL } from './api.js';
 import { initNavigation } from './navigation.js';
+import { initAllForms } from './forms.js';
+import { initImageHandlers } from './images.js';
 
 // Connection check interval (5 seconds)
 const CONNECTION_CHECK_INTERVAL = 5000;
@@ -25,6 +27,12 @@ function init() {
     
     // Initialize navigation
     initNavigation();
+    
+    // Initialize generation forms
+    initAllForms();
+    
+    // Initialize image handlers
+    initImageHandlers();
     
     // Check API connection immediately
     updateConnectionStatus();
