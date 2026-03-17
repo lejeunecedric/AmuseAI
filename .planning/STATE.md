@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API Web Client
 status: in_progress
-stopped_at: Completed plan 07-01
-last_updated: "2026-03-18T00:26:00.000Z"
+stopped_at: Completed plan 08-01
+last_updated: "2026-03-18T00:45:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 4
-  total_plans: 4
-  completed_plans: 8
-  percent: 25
+  completed_phases: 5
+  total_plans: 5
+  completed_plans: 9
+  percent: 30
 ---
 
 # Project State
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Milestone: v1.1 API Web Client
-Phase: 07-generation-testing-ui
-Plan: 07-01
-Status: Plan 07-01 complete, ready for next plan
+Phase: 08-job-monitor-dashboard
+Plan: 08-01
+Status: Plan 08-01 complete, Phase 8 complete
 
-Progress: [██░░░░░░░░] 25%
+Progress: [███░░░░░░░] 30%
 
 ## Previous Milestone (v1.0)
 
@@ -50,17 +50,20 @@ All code pushed to GitHub.
 **Phase 7: Generation Testing UI**
 - [x] Plan 07-01: Generation Testing UI — Complete
 
+**Phase 8: Job Monitor Dashboard**
+- [x] Plan 08-01: Job Monitor Dashboard — Complete
+
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7 (5 v1.0 + 2 v1.1)
+- Total plans completed: 9 (5 v1.0 + 4 v1.1)
 - Average duration: ~0.33 hours
-- Total execution time: 1.75 hours (v1.0) + 0.5 hours (v1.1)
+- Total execution time: 1.75 hours (v1.0) + 0.75 hours (v1.1)
 
 **Latest Plan:**
-- Plan: 07-01 Generation Testing UI
-- Duration: 18 min
-- Tasks: 6/6
+- Plan: 08-01 Job Monitor Dashboard
+- Duration: 15 min
+- Tasks: 5/5
 
 ## Accumulated Context
 
@@ -86,6 +89,10 @@ All code pushed to GitHub.
 - Truncate Base64 in JSON view for readability (first 100 chars + ellipsis)
 - Drag-and-drop zones with visual feedback for image uploads
 - Radio buttons styled as toggle buttons for scale selector (2x/4x)
+- MutationObserver for section-aware polling (start/stop based on visible section)
+- Optimistic UI updates for cancel operations (revert on failure)
+- 2-second polling interval for job updates balanced real-time feel with API load
+- Page Visibility API to pause polling when tab hidden
 
 ### Pending Todos
 
@@ -98,10 +105,10 @@ None currently.
 ## Session Continuity
 
 Last session: 2026-03-18
-Stopped at: Completed plan 07-01
-Resume file: .planning/phases/07-generation-testing-ui/07-01-SUMMARY.md
+Stopped at: Completed plan 08-01
+Resume file: .planning/phases/08-job-monitor-dashboard/08-01-SUMMARY.md
 
 ## Next Steps
 
-1. Execute plan 07-02 (Job Monitor UI) or create next plan
+1. Plan Phase 9 (Models UI) or next phase
 2. Continue building web client features
