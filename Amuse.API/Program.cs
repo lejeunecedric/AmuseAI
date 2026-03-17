@@ -51,3 +51,6 @@ finally
     Log.Information("Amuse.API shutting down...");
     Log.CloseAndFlush();
 }
+
+// Make Program class public for testing
+public partial class Program { }
