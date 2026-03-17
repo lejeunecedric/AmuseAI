@@ -123,6 +123,77 @@
 - Mapped to phases: 26
 - Unmapped: 0 ✓
 
+## v1.1 Requirements (Web Client)
+
+### Web Client Foundation
+
+- [ ] **WEB-01**: Web client serves on configurable port (default 5001)
+- [ ] **WEB-02**: Client auto-discovers API at localhost:5000
+- [ ] **WEB-03**: Clean, responsive UI using vanilla HTML/CSS/JS
+- [ ] **WEB-04**: No build step required (static files or minimal server)
+
+### Generation Testing
+
+- [ ] **GEN-01**: Form for text2img with all parameters (prompt, negative, width, height, steps, guidance, seed)
+- [ ] **GEN-02**: Form for img2img with image upload and strength slider
+- [ ] **GEN-03**: Form for upscale with image upload and scale selector
+- [ ] **GEN-04**: Display generated images inline (Base64 decode)
+- [ ] **GEN-05**: Show request/response JSON for debugging
+
+### Job Monitoring
+
+- [ ] **JOBM-01**: Dashboard showing all jobs with status
+- [ ] **JOBM-02**: Auto-refresh job status (polling every 2 seconds)
+- [ ] **JOBM-03**: View job details including request params and result
+- [ ] **JOBM-04**: Cancel button for pending/processing jobs
+- [ ] **JOBM-05**: Visual status indicators (colors/icons for each status)
+
+### Model Management UI
+
+- [ ] **MODU-01**: List all available models with metadata
+- [ ] **MODU-02**: Show currently loaded models
+- [ ] **MODU-03**: Load/unload buttons with confirmation
+- [ ] **MODU-04**: Display memory usage for loaded models
+
+### API Inspection
+
+- [ ] **INSP-01**: Show raw HTTP requests being made
+- [ ] **INSP-02**: Show raw HTTP responses
+- [ ] **INSP-03**: Copy-to-clipboard for curl commands
+- [ ] **INSP-04**: Response time display
+
+## Traceability v1.1
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| WEB-01 | Phase 6 | Pending |
+| WEB-02 | Phase 6 | Pending |
+| WEB-03 | Phase 6 | Pending |
+| WEB-04 | Phase 6 | Pending |
+| GEN-01 | Phase 7 | Pending |
+| GEN-02 | Phase 7 | Pending |
+| GEN-03 | Phase 7 | Pending |
+| GEN-04 | Phase 7 | Pending |
+| GEN-05 | Phase 7 | Pending |
+| JOBM-01 | Phase 8 | Pending |
+| JOBM-02 | Phase 8 | Pending |
+| JOBM-03 | Phase 8 | Pending |
+| JOBM-04 | Phase 8 | Pending |
+| JOBM-05 | Phase 8 | Pending |
+| MODU-01 | Phase 9 | Pending |
+| MODU-02 | Phase 9 | Pending |
+| MODU-03 | Phase 9 | Pending |
+| MODU-04 | Phase 9 | Pending |
+| INSP-01 | Phase 10 | Pending |
+| INSP-02 | Phase 10 | Pending |
+| INSP-03 | Phase 10 | Pending |
+| INSP-04 | Phase 10 | Pending |
+
+**Coverage v1.1:**
+- v1.1 requirements: 22 total
+- Mapped to phases: 22
+- Unmapped: 0 ✓
+
 ---
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-17 after Phase 5 completion - ALL REQUIREMENTS SATISFIED*
+*Last updated: 2026-03-17 after Milestone v1.1 definition*
