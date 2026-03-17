@@ -127,10 +127,10 @@
 
 ### Web Client Foundation
 
-- [ ] **WEB-01**: Web client serves on configurable port (default 5001)
-- [ ] **WEB-02**: Client auto-discovers API at localhost:5000
-- [ ] **WEB-03**: Clean, responsive UI using vanilla HTML/CSS/JS
-- [ ] **WEB-04**: No build step required (static files or minimal server)
+- [x] **WEB-01**: Web client serves on configurable port (default 5001)
+- [x] **WEB-02**: Client auto-discovers API at localhost:5000
+- [x] **WEB-03**: Clean, responsive UI using vanilla HTML/CSS/JS
+- [x] **WEB-04**: No build step required (static files or minimal server)
 
 ### Generation Testing
 
@@ -166,10 +166,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| WEB-01 | Phase 6 | Pending |
-| WEB-02 | Phase 6 | Pending |
-| WEB-03 | Phase 6 | Pending |
-| WEB-04 | Phase 6 | Pending |
+| WEB-01 | Phase 6 | Complete |
+| WEB-02 | Phase 6 | Complete |
+| WEB-03 | Phase 6 | Complete |
+| WEB-04 | Phase 6 | Complete |
 | GEN-01 | Phase 7 | Pending |
 | GEN-02 | Phase 7 | Pending |
 | GEN-03 | Phase 7 | Pending |
