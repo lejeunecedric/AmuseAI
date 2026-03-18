@@ -1519,3 +1519,396 @@ body {
         font-size: 2rem;
     }
 }
+
+/* ============================================================================
+   MODELS MANAGEMENT STYLES
+   ============================================================================ */
+
+/* Models Section Card */
+.models-section-card {
+    max-width: 100%;
+}
+
+/* Memory Summary Bar */
+.models-memory-summary {
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.memory-summary-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
+}
+
+.memory-summary-content .memory-icon {
+    font-size: 1.2em;
+}
+
+.memory-summary-content .memory-text {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* Models Controls */
+.models-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.models-filters {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.models-filter-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.models-filter-btn:hover {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.models-filter-btn.active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: white;
+}
+
+.models-controls-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.last-refreshed {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.polling-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-text-muted);
+    transition: background-color var(--transition-fast);
+}
+
+.polling-indicator.active {
+    background-color: var(--color-status-connected);
+    box-shadow: 0 0 8px var(--color-status-connected);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Models Grid */
+.models-container {
+    position: relative;
+}
+
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .models-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Model Cards */
+.model-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+.model-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-accent);
+}
+
+.model-card.loaded {
+    background-color: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.model-card.loaded:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+.model-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.model-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.model-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.model-name {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.format-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--color-bg-tertiary);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin-top: var(--spacing-xs);
+}
+
+.model-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.model-status .status-icon {
+    font-size: 0.9em;
+}
+
+.status-loaded {
+    background-color: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.status-unloaded {
+    background-color: rgba(113, 113, 122, 0.2);
+    color: var(--color-text-muted);
+}
+
+/* Model Details */
+.model-details {
+    margin-bottom: var(--spacing-md);
+}
+
+.model-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.model-type {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.model-size {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.model-memory {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: rgba(99, 102, 241, 0.1);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+}
+
+.model-memory .memory-icon {
+    font-size: 1em;
+}
+
+.model-memory .memory-usage {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+.model-memory .load-time {
+    color: var(--color-text-muted);
+}
+
+/* Model Actions */
+.model-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.model-actions button {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.model-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-load {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.btn-load:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+}
+
+.btn-unload {
+    background-color: rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.btn-unload:hover:not(:disabled) {
+    background-color: rgba(249, 115, 22, 0.3);
+    border-color: rgba(249, 115, 22, 0.5);
+}
+
+.btn-loading {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-muted);
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-text-muted);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Empty and Loading States */
+.models-empty,
+.models-loading {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.models-empty .empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    display: block;
+}
+
+.models-empty .placeholder-text {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+}
+
+.models-loading .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-md);
+}
+
+.models-loading p {
+    color: var(--color-text-muted);
+}
+
+/* Error State */
+.models-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    color: #ef4444;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Responsive Models */
+@media (max-width: 768px) {
+    .models-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .models-controls-right {
+        justify-content: space-between;
+    }
+    
+    .models-filters {
+        justify-content: center;
+    }
+    
+    .model-card {
+        padding: var(--spacing-md);
+    }
+    
+    .model-icon {
+        font-size: 1.5rem;
+    }
+    
+    .model-name {
+        font-size: var(--font-size-base);
+    }
+    
+    .model-header {
+        flex-wrap: wrap;
+    }
+    
+    .model-actions button {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-sm);
+    }
+}

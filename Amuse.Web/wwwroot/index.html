@@ -629,11 +629,54 @@
 
             <!-- Models -->
             <section id="section-models" class="content-section">
-                <div class="section-card">
+                <div class="section-card models-section-card">
                     <h3>Model Management</h3>
-                    <p class="section-description">Load, unload, and view AI models.</p>
-                    <div class="models-placeholder">
-                        <p class="placeholder-text">Model list coming soon...</p>
+                    <p class="section-description">Load, unload, and manage AI models for generation.</p>
+
+                    <!-- Memory Summary Bar -->
+                    <div class="models-memory-summary" id="models-memory-summary">
+                        <div class="memory-summary-content">
+                            <span class="memory-icon">💾</span>
+                            <span class="memory-text">Loading memory info...</span>
+                        </div>
+                    </div>
+
+                    <!-- Controls Bar -->
+                    <div class="models-controls">
+                        <div class="models-filters">
+                            <button class="models-filter-btn active" data-filter="all">All</button>
+                            <button class="models-filter-btn" data-filter="StableDiffusion">Stable Diffusion</button>
+                            <button class="models-filter-btn" data-filter="Upscaler">Upscaling</button>
+                        </div>
+                        <div class="models-controls-right">
+                            <span class="last-refreshed" id="last-refreshed">Last refreshed: --</span>
+                            <span class="polling-indicator" id="models-polling-indicator" title="Auto-refresh paused"></span>
+                            <button class="btn btn-secondary btn-small" id="models-refresh-btn" title="Refresh now">
+                                <span>🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="models-error hidden" id="models-error"></div>
+
+                    <!-- Models Grid -->
+                    <div class="models-container" id="models-container">
+                        <div class="models-grid" id="models-grid">
+                            <!-- Cards populated by models.js -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="models-empty hidden" id="models-empty-state">
+                            <span class="empty-icon">📦</span>
+                            <p class="placeholder-text">No models available.</p>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="models-loading hidden" id="models-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading models...</p>
+                        </div>
                     </div>
                 </div>
             </section>
