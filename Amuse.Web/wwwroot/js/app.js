@@ -9,6 +9,7 @@ import { initAllForms } from './forms.js';
 import { initImageHandlers } from './images.js';
 import { initJobsMonitor, startPolling as startJobsPolling, stopPolling as stopJobsPolling } from './jobs.js';
 import { initModelsManager, startPolling as startModelsPolling, stopPolling as stopModelsPolling } from './models.js';
+import { initInspector, startCapturing, stopCapturing } from './inspector.js';
 
 // Connection check interval (5 seconds)
 const CONNECTION_CHECK_INTERVAL = 5000;
@@ -42,9 +43,13 @@ function init() {
     // Initialize models manager
     initModelsManager();
     
-    // Setup navigation change listeners for polling
+    // Initialize API Inspector
+    initInspector();
+    
+    // Setup navigation change listeners for polling and capture
     setupJobsPollingOnNavigation();
     setupModelsPollingOnNavigation();
+    setupInspectorCaptureOnNavigation();
     
     // Check API connection immediately
     updateConnectionStatus();
@@ -167,6 +172,41 @@ function setupModelsPollingOnNavigation() {
     if (modelsSection.classList.contains('active')) {
         console.log('🤖 Models section initially active - starting polling');
         startModelsPolling();
+    }
+}
+
+/**
+ * Setup navigation change listener to manage inspector capture
+ */
+function setupInspectorCaptureOnNavigation() {
+    const inspectorSection = document.getElementById('section-inspector');
+    if (!inspectorSection) return;
+
+    // Use MutationObserver to detect when inspector section becomes active
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const isActive = inspectorSection.classList.contains('active');
+                if (isActive) {
+                    console.log('🔍 Inspector section activated - starting capture');
+                    startCapturing();
+                } else {
+                    console.log('🔍 Inspector section deactivated - stopping capture');
+                    stopCapturing();
+                }
+            }
+        });
+    });
+
+    observer.observe(inspectorSection, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+
+    // Check initial state
+    if (inspectorSection.classList.contains('active')) {
+        console.log('🔍 Inspector section initially active - starting capture');
+        startCapturing();
     }
 }
 
