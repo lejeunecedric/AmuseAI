@@ -4,6 +4,42 @@
 
 const API_BASE_URL = 'http://localhost:5000';
 
+// API Call listeners for inspector
+const apiCallListeners = [];
+
+/**
+ * Add a listener for API calls
+ * @param {function} listener - Function to call with API call data
+ */
+export function addApiCallListener(listener) {
+    apiCallListeners.push(listener);
+}
+
+/**
+ * Remove an API call listener
+ * @param {function} listener - Listener to remove
+ */
+export function removeApiCallListener(listener) {
+    const index = apiCallListeners.indexOf(listener);
+    if (index > -1) {
+        apiCallListeners.splice(index, 1);
+    }
+}
+
+/**
+ * Notify all listeners of an API call
+ * @param {object} callData - The API call data
+ */
+function notifyListeners(callData) {
+    apiCallListeners.forEach(listener => {
+        try {
+            listener(callData);
+        } catch (e) {
+            console.error('API call listener error:', e);
+        }
+    });
+}
+
 /**
  * Check if the API is reachable
  * @returns {Promise<{connected: boolean, latency?: number, error?: string}>}
@@ -45,6 +81,8 @@ export async function checkApiConnection() {
  * @returns {Promise<any>}
  */
 export async function fetchApi(endpoint, options = {}) {
+    const startTime = performance.now();
+    const timestamp = Date.now();
     const url = `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
     
     const defaultOptions = {
@@ -63,21 +101,82 @@ export async function fetchApi(endpoint, options = {}) {
         }
     };
     
+    // Capture request details
+    const requestCapture = {
+        method: mergedOptions.method || 'GET',
+        url: url,
+        headers: { ...mergedOptions.headers },
+        body: mergedOptions.body || null,
+        bodySize: mergedOptions.body ? mergedOptions.body.length : 0
+    };
+    
     try {
         const response = await fetch(url, mergedOptions);
+        const endTime = performance.now();
         
+        // Capture response metadata
+        const responseCapture = {
+            status: response.status,
+            statusText: response.statusText,
+            headers: Object.fromEntries(response.headers.entries())
+        };
+        
+        // Clone and read body for capture without consuming original
+        const responseClone = response.clone();
+        let bodyText = '';
+        try {
+            bodyText = await responseClone.text();
+        } catch (e) {
+            bodyText = '[Unable to read body]';
+        }
+        responseCapture.body = bodyText;
+        responseCapture.bodySize = bodyText.length;
+        
+        // Notify listeners
+        notifyListeners({
+            id: `call-${timestamp}-${Math.random().toString(36).substr(2, 9)}`,
+            timestamp: timestamp,
+            request: requestCapture,
+            response: responseCapture,
+            timing: {
+                startTime: startTime,
+                endTime: endTime,
+                duration: parseFloat((endTime - startTime).toFixed(1))
+            },
+            error: null
+        });
+        
+        // Return result as before
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        // Handle empty responses
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
             return await response.json();
         }
-        
         return await response.text();
+        
     } catch (error) {
+        const endTime = performance.now();
+        
+        // Notify listeners of error
+        notifyListeners({
+            id: `call-${timestamp}-${Math.random().toString(36).substr(2, 9)}`,
+            timestamp: timestamp,
+            request: requestCapture,
+            response: null,
+            timing: {
+                startTime: startTime,
+                endTime: endTime,
+                duration: parseFloat((endTime - startTime).toFixed(1))
+            },
+            error: {
+                message: error.message,
+                name: error.name
+            }
+        });
+        
         console.error(`API call failed: ${endpoint}`, error);
         throw error;
     }
