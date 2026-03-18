@@ -150,10 +150,10 @@
 
 ### Model Management UI
 
-- [ ] **MODU-01**: List all available models with metadata
-- [ ] **MODU-02**: Show currently loaded models
-- [ ] **MODU-03**: Load/unload buttons with confirmation
-- [ ] **MODU-04**: Display memory usage for loaded models
+- [x] **MODU-01**: List all available models with metadata
+- [x] **MODU-02**: Show currently loaded models
+- [x] **MODU-03**: Load/unload buttons with confirmation
+- [x] **MODU-04**: Display memory usage for loaded models
 
 ### API Inspection
 
@@ -180,10 +180,10 @@
 | JOBM-03 | Phase 8 | Pending |
 | JOBM-04 | Phase 8 | Pending |
 | JOBM-05 | Phase 8 | Pending |
-| MODU-01 | Phase 9 | Pending |
-| MODU-02 | Phase 9 | Pending |
-| MODU-03 | Phase 9 | Pending |
-| MODU-04 | Phase 9 | Pending |
+| MODU-01 | Phase 9 | Complete |
+| MODU-02 | Phase 9 | Complete |
+| MODU-03 | Phase 9 | Complete |
+| MODU-04 | Phase 9 | Complete |
 | INSP-01 | Phase 10 | Pending |
 | INSP-02 | Phase 10 | Pending |
 | INSP-03 | Phase 10 | Pending |
