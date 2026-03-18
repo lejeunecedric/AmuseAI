@@ -683,11 +683,44 @@
 
             <!-- Inspector -->
             <section id="section-inspector" class="content-section">
-                <div class="section-card">
+                <div class="section-card inspector-section-card">
                     <h3>API Inspector</h3>
-                    <p class="section-description">Debug API calls and inspect responses.</p>
-                    <div class="inspector-placeholder">
-                        <p class="placeholder-text">Inspector tools coming soon...</p>
+                    <p class="section-description">Debug API calls and inspect request/response details. History is captured only while this section is active.</p>
+
+                    <!-- Controls Bar -->
+                    <div class="inspector-controls">
+                        <div class="inspector-stats">
+                            <span class="stat-item">
+                                <span class="stat-label">Calls:</span>
+                                <span class="stat-value" id="inspector-call-count">0</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-label">Status:</span>
+                                <span class="stat-value" id="inspector-status">Inactive</span>
+                            </span>
+                        </div>
+                        <div class="inspector-controls-right">
+                            <button class="btn btn-secondary btn-small" id="inspector-pause-btn" title="Pause/Resume capture">
+                                <span>⏸️</span> Pause
+                            </button>
+                            <button class="btn btn-secondary btn-small" id="inspector-clear-btn" title="Clear all history">
+                                <span>🗑️</span> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="inspector-empty" id="inspector-empty-state">
+                        <span class="empty-icon">🔍</span>
+                        <p class="placeholder-text">No API calls captured yet.</p>
+                        <p class="placeholder-hint">Navigate to other sections to generate API traffic.</p>
+                    </div>
+
+                    <!-- History List -->
+                    <div class="inspector-history hidden" id="inspector-history-container">
+                        <div class="inspector-history-list" id="inspector-history-list">
+                            <!-- Call entries populated by inspector.js -->
+                        </div>
                     </div>
                 </div>
             </section>
