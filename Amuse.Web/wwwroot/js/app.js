@@ -7,7 +7,8 @@ import { checkApiConnection, API_BASE_URL } from './api.js';
 import { initNavigation } from './navigation.js';
 import { initAllForms } from './forms.js';
 import { initImageHandlers } from './images.js';
-import { initJobsMonitor, startPolling, stopPolling } from './jobs.js';
+import { initJobsMonitor, startPolling as startJobsPolling, stopPolling as stopJobsPolling } from './jobs.js';
+import { initModelsManager, startPolling as startModelsPolling, stopPolling as stopModelsPolling } from './models.js';
 
 // Connection check interval (5 seconds)
 const CONNECTION_CHECK_INTERVAL = 5000;
@@ -38,8 +39,12 @@ function init() {
     // Initialize jobs monitor
     initJobsMonitor();
     
-    // Setup navigation change listener for jobs polling
+    // Initialize models manager
+    initModelsManager();
+    
+    // Setup navigation change listeners for polling
     setupJobsPollingOnNavigation();
+    setupModelsPollingOnNavigation();
     
     // Check API connection immediately
     updateConnectionStatus();
@@ -109,10 +114,10 @@ function setupJobsPollingOnNavigation() {
                 const isActive = jobsSection.classList.contains('active');
                 if (isActive) {
                     console.log('📋 Jobs section activated - starting polling');
-                    startPolling();
+                    startJobsPolling();
                 } else {
                     console.log('📋 Jobs section deactivated - stopping polling');
-                    stopPolling();
+                    stopJobsPolling();
                 }
             }
         });
@@ -126,7 +131,42 @@ function setupJobsPollingOnNavigation() {
     // Check initial state
     if (jobsSection.classList.contains('active')) {
         console.log('📋 Jobs section initially active - starting polling');
-        startPolling();
+        startJobsPolling();
+    }
+}
+
+/**
+ * Setup navigation change listener to manage models polling
+ */
+function setupModelsPollingOnNavigation() {
+    const modelsSection = document.getElementById('section-models');
+    if (!modelsSection) return;
+
+    // Use MutationObserver to detect when models section becomes active
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const isActive = modelsSection.classList.contains('active');
+                if (isActive) {
+                    console.log('🤖 Models section activated - starting polling');
+                    startModelsPolling();
+                } else {
+                    console.log('🤖 Models section deactivated - stopping polling');
+                    stopModelsPolling();
+                }
+            }
+        });
+    });
+
+    observer.observe(modelsSection, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+
+    // Check initial state
+    if (modelsSection.classList.contains('active')) {
+        console.log('🤖 Models section initially active - starting polling');
+        startModelsPolling();
     }
 }
 
