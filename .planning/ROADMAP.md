@@ -253,7 +253,7 @@
 | 7. Generation Testing UI | 1/1 | Planned     | - |
 | 8. Job Monitor Dashboard | 1/1 | Planned     | - |
 | 9. Model Management UI | 1/1 | Complete   | 2026-03-18 |
-| 10. API Inspector | 0/1 | Not started | - |
+| 10. API Inspector | 1/1 | Planned    | - |
 
 ---
 
