@@ -118,5 +118,27 @@ export async function getLoadedModels() {
     return response.models || [];
 }
 
+/**
+ * Load a model into memory
+ * @param {string} id - Model ID
+ * @returns {Promise<object>}
+ */
+export async function loadModel(id) {
+    return fetchApi(`/api/models/${id}/load`, {
+        method: 'POST'
+    });
+}
+
+/**
+ * Unload a model from memory
+ * @param {string} id - Model ID
+ * @returns {Promise<object>}
+ */
+export async function unloadModel(id) {
+    return fetchApi(`/api/models/${id}/unload`, {
+        method: 'POST'
+    });
+}
+
 // Export API_BASE_URL for use in other modules
 export { API_BASE_URL };
