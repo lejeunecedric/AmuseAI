@@ -157,10 +157,10 @@
 
 ### API Inspection
 
-- [ ] **INSP-01**: Show raw HTTP requests being made
-- [ ] **INSP-02**: Show raw HTTP responses
-- [ ] **INSP-03**: Copy-to-clipboard for curl commands
-- [ ] **INSP-04**: Response time display
+- [x] **INSP-01**: Show raw HTTP requests being made
+- [x] **INSP-02**: Show raw HTTP responses
+- [x] **INSP-03**: Copy-to-clipboard for curl commands
+- [x] **INSP-04**: Response time display
 
 ## Traceability v1.1
 
@@ -184,10 +184,10 @@
 | MODU-02 | Phase 9 | Complete |
 | MODU-03 | Phase 9 | Complete |
 | MODU-04 | Phase 9 | Complete |
-| INSP-01 | Phase 10 | Pending |
-| INSP-02 | Phase 10 | Pending |
-| INSP-03 | Phase 10 | Pending |
-| INSP-04 | Phase 10 | Pending |
+| INSP-01 | Phase 10 | Complete |
+| INSP-02 | Phase 10 | Complete |
+| INSP-03 | Phase 10 | Complete |
+| INSP-04 | Phase 10 | Complete |
 
 **Coverage v1.1:**
 - v1.1 requirements: 22 total
